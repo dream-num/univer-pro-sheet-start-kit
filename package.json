@@ -1,0 +1,51 @@
+{
+  "name": "univer-pro-sheet-start-kit",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A starter kit for Univer Pro Sheet",
+  "scripts": {
+    "prepare": "simple-git-hooks",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "@univerjs-pro/collaboration": "^0.1.7",
+    "@univerjs-pro/collaboration-client": "^0.1.7",
+    "@univerjs/core": "^0.1.8",
+    "@univerjs/data-validation": "^0.1.8",
+    "@univerjs/design": "^0.1.8",
+    "@univerjs/docs": "^0.1.8",
+    "@univerjs/docs-ui": "^0.1.8",
+    "@univerjs/engine-formula": "^0.1.8",
+    "@univerjs/engine-numfmt": "^0.1.8",
+    "@univerjs/engine-render": "^0.1.8",
+    "@univerjs/facade": "^0.1.8",
+    "@univerjs/network": "^0.1.8",
+    "@univerjs/rpc": "^0.1.8",
+    "@univerjs/sheets": "^0.1.8",
+    "@univerjs/sheets-conditional-formatting": "^0.1.8",
+    "@univerjs/sheets-filter": "^0.1.8",
+    "@univerjs/sheets-formula": "^0.1.8",
+    "@univerjs/sheets-numfmt": "^0.1.8",
+    "@univerjs/sheets-ui": "^0.1.8",
+    "@univerjs/ui": "^0.1.8"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.8.3",
+    "eslint": "^8.57.0",
+    "eslint-plugin-format": "^0.1.0",
+    "lint-staged": "^15.2.2",
+    "simple-git-hooks": "^2.10.0",
+    "typescript": "^5.4.2",
+    "vite": "^5.1.6"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
