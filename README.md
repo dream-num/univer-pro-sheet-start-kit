@@ -3,14 +3,16 @@
 This template can help you get started with using the Univer Pro, and you can use the code inside to create useful applications.
 
 - [x] collaboration plugin with Univer Pro API
+- [x] exchange plugin with Univer Pro API
+- [x] print plugin with Univer Pro API
 
 ## More about Univer Pro
 
-You can find more information about Univer Pro [here](https://univer.ai/pro/enterprises/).
+You can find more information about Univer Pro [here](https://univer.ai/pro/guides/sheet/introduction).
 
 ## How to use
 
-First, you need to deploy Univer Pro with Docker, you can follow the instructions [here](https://univer.ai/pro/enterprises/community-edition/#deployment).
+First, you need to deploy Univer Pro with Docker, you can follow the instructions [here](https://univer.ai/pro/guides/sheet/deployment/docker).
 
 Then, you can use the following command to start the application:
 
