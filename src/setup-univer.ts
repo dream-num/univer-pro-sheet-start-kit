@@ -4,7 +4,12 @@ import '@univerjs/sheets-ui/lib/index.css'
 import '@univerjs/sheets-formula/lib/index.css'
 import '@univerjs/sheets-numfmt/lib/index.css'
 
-import { IConfigService, LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core'
+import '@univerjs-pro/collaboration-client/lib/index.css'
+import '@univerjs-pro/live-share/lib/index.css'
+import '@univerjs-pro/sheets-print/lib/index.css'
+import '@univerjs-pro/sheets-exchange-client/lib/index.css'
+
+import { LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core'
 import { defaultTheme } from '@univerjs/design'
 import { UniverDocsPlugin } from '@univerjs/docs'
 import { UniverDocsUIPlugin } from '@univerjs/docs-ui'
@@ -17,17 +22,12 @@ import { UniverSheetsUIPlugin } from '@univerjs/sheets-ui'
 import { UniverUIPlugin } from '@univerjs/ui'
 import { FUniver } from '@univerjs/facade'
 
-import type {
-  ICollaborationClientPluginConfig,
-} from '@univerjs-pro/collaboration-client'
-import {
-  COLLAB_SUBMIT_CHANGESET_URL_KEY,
-  COLLAB_WEB_SOCKET_URL_KEY,
-  CollaborationClientPlugin,
-  SEND_CHANGESET_TIMEOUT_KEY,
-  SNAPSHOT_SERVER_URL_KEY,
-} from '@univerjs-pro/collaboration-client'
 import { CollaborationPlugin } from '@univerjs-pro/collaboration'
+import { CollaborationClientPlugin } from '@univerjs-pro/collaboration-client'
+import { LiveSharePlugin } from '@univerjs-pro/live-share'
+import { SheetsPrintPlugin } from '@univerjs-pro/sheets-print'
+import { UniverSheetsExchangeClientPlugin } from '@univerjs-pro/sheets-exchange-client'
+
 import { locales } from './locale'
 
 export function setupUniver() {
@@ -55,24 +55,16 @@ export function setupUniver() {
   univer.registerPlugin(UniverFormulaEnginePlugin)
   univer.registerPlugin(UniverSheetsFormulaPlugin)
 
-  // collaboration config
-  const isSecure = window.location.protocol === 'https:'
-  const host = window.location.host
-  const apiEndpoint = `${isSecure ? 'https' : 'http'}://${host}`
-  const wsEndpoint = `${isSecure ? 'wss' : 'ws'}://${host}`
-
-  const configService = univer.__getInjector().get(IConfigService)
-  configService.setConfig(SNAPSHOT_SERVER_URL_KEY, `${apiEndpoint}/universer-api/snapshot`)
-  configService.setConfig(COLLAB_SUBMIT_CHANGESET_URL_KEY, `${apiEndpoint}/universer-api/comb`)
-  configService.setConfig(COLLAB_WEB_SOCKET_URL_KEY, `${wsEndpoint}/universer-api/comb/connect`)
-  configService.setConfig(SEND_CHANGESET_TIMEOUT_KEY, 200)
-
   // collaboration plugins
   univer.registerPlugin(CollaborationPlugin)
-  univer.registerPlugin(CollaborationClientPlugin, {
-    enableOfflineEditing: false,
-    enableSingleActiveInstanceLock: true,
-  } as ICollaborationClientPluginConfig)
+  univer.registerPlugin(CollaborationClientPlugin)
+  univer.registerPlugin(LiveSharePlugin)
+
+  // print
+  univer.registerPlugin(SheetsPrintPlugin)
+
+  // exchange
+  univer.registerPlugin(UniverSheetsExchangeClientPlugin)
 
   // check if the unit is already created
   const url = new URL(window.location.href)
@@ -81,7 +73,7 @@ export function setupUniver() {
     // waiting for the unit to be loaded
   }
   else {
-    fetch(`${apiEndpoint}/universer-api/snapshot/2/unit/-/create`, {
+    fetch(`/universer-api/snapshot/2/unit/-/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
