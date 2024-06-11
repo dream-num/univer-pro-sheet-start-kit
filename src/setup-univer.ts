@@ -3,13 +3,14 @@ import '@univerjs/ui/lib/index.css'
 import '@univerjs/sheets-ui/lib/index.css'
 import '@univerjs/sheets-formula/lib/index.css'
 import '@univerjs/sheets-numfmt/lib/index.css'
+import '@univerjs/sheets-conditional-formatting-ui/lib/index.css'
 
 import '@univerjs-pro/collaboration-client/lib/index.css'
 import '@univerjs-pro/live-share/lib/index.css'
 import '@univerjs-pro/sheets-print/lib/index.css'
 import '@univerjs-pro/sheets-exchange-client/lib/index.css'
 
-import { LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core'
+import { IAuthzIoService, LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core'
 import { defaultTheme } from '@univerjs/design'
 import { UniverDocsPlugin } from '@univerjs/docs'
 import { UniverDocsUIPlugin } from '@univerjs/docs-ui'
@@ -20,6 +21,7 @@ import { UniverSheetsFormulaPlugin } from '@univerjs/sheets-formula'
 import { UniverSheetsNumfmtPlugin } from '@univerjs/sheets-numfmt'
 import { UniverSheetsUIPlugin } from '@univerjs/sheets-ui'
 import { UniverUIPlugin } from '@univerjs/ui'
+import { UniverSheetsConditionalFormattingUIPlugin } from '@univerjs/sheets-conditional-formatting-ui'
 import { FUniver } from '@univerjs/facade'
 
 import { CollaborationPlugin } from '@univerjs-pro/collaboration'
@@ -36,6 +38,7 @@ export function setupUniver() {
     locale: LocaleType.EN_US,
     logLevel: LogLevel.VERBOSE,
     locales,
+    override: [[IAuthzIoService, null]],
   })
 
   univer.registerPlugin(UniverDocsPlugin, {
@@ -54,6 +57,7 @@ export function setupUniver() {
   univer.registerPlugin(UniverSheetsNumfmtPlugin)
   univer.registerPlugin(UniverFormulaEnginePlugin)
   univer.registerPlugin(UniverSheetsFormulaPlugin)
+  univer.registerPlugin(UniverSheetsConditionalFormattingUIPlugin)
 
   // collaboration plugins
   univer.registerPlugin(CollaborationPlugin)

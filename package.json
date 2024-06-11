@@ -32,6 +32,7 @@
     "@univerjs/rpc": "0.1.13",
     "@univerjs/sheets": "0.1.13",
     "@univerjs/sheets-conditional-formatting": "0.1.13",
+    "@univerjs/sheets-conditional-formatting-ui": "^0.1.14",
     "@univerjs/sheets-filter": "0.1.13",
     "@univerjs/sheets-formula": "0.1.13",
     "@univerjs/sheets-numfmt": "0.1.13",
