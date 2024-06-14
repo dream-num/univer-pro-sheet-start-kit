@@ -10,7 +10,7 @@ import '@univerjs-pro/live-share/lib/index.css'
 import '@univerjs-pro/sheets-print/lib/index.css'
 import '@univerjs-pro/sheets-exchange-client/lib/index.css'
 
-import { IAuthzIoService, LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core'
+import { IAuthzIoService, IUndoRedoService, LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core'
 import { defaultTheme } from '@univerjs/design'
 import { UniverDocsPlugin } from '@univerjs/docs'
 import { UniverDocsUIPlugin } from '@univerjs/docs-ui'
@@ -24,10 +24,10 @@ import { UniverUIPlugin } from '@univerjs/ui'
 import { UniverSheetsConditionalFormattingUIPlugin } from '@univerjs/sheets-conditional-formatting-ui'
 import { FUniver } from '@univerjs/facade'
 
-import { CollaborationPlugin } from '@univerjs-pro/collaboration'
-import { CollaborationClientPlugin } from '@univerjs-pro/collaboration-client'
-import { LiveSharePlugin } from '@univerjs-pro/live-share'
-import { SheetsPrintPlugin } from '@univerjs-pro/sheets-print'
+import { UniverCollaborationPlugin } from '@univerjs-pro/collaboration'
+import { UniverCollaborationClientPlugin } from '@univerjs-pro/collaboration-client'
+import { UniverLiveSharePlugin } from '@univerjs-pro/live-share'
+import { UniverSheetsPrintPlugin } from '@univerjs-pro/sheets-print'
 import { UniverSheetsExchangeClientPlugin } from '@univerjs-pro/sheets-exchange-client'
 
 import { locales } from './locale'
@@ -38,7 +38,10 @@ export function setupUniver() {
     locale: LocaleType.EN_US,
     logLevel: LogLevel.VERBOSE,
     locales,
-    override: [[IAuthzIoService, null]],
+    override: [
+      [IAuthzIoService, null],
+      [IUndoRedoService, null],
+    ],
   })
 
   univer.registerPlugin(UniverDocsPlugin, {
@@ -60,12 +63,12 @@ export function setupUniver() {
   univer.registerPlugin(UniverSheetsConditionalFormattingUIPlugin)
 
   // collaboration plugins
-  univer.registerPlugin(CollaborationPlugin)
-  univer.registerPlugin(CollaborationClientPlugin)
-  univer.registerPlugin(LiveSharePlugin)
+  univer.registerPlugin(UniverCollaborationPlugin)
+  univer.registerPlugin(UniverCollaborationClientPlugin)
+  univer.registerPlugin(UniverLiveSharePlugin)
 
   // print
-  univer.registerPlugin(SheetsPrintPlugin)
+  univer.registerPlugin(UniverSheetsPrintPlugin)
 
   // exchange
   univer.registerPlugin(UniverSheetsExchangeClientPlugin)
