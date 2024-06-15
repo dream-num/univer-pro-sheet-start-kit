@@ -38,6 +38,9 @@ export function setupUniver() {
     locale: LocaleType.EN_US,
     logLevel: LogLevel.VERBOSE,
     locales,
+    // When enabling the collaboration plugin, set the built-in implementation to `null`.
+    // This avoids double injection issues since the plugin injects its own implementation.
+    // Failure to do so will result in conflicts and errors.
     override: [
       [IAuthzIoService, null],
       [IUndoRedoService, null],
