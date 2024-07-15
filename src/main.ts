@@ -5,6 +5,10 @@ import { setupToolbar } from './setup-toolbar'
 
 function main() {
   const univerAPI = setupUniver()
+
+  // test on dev
+  window.univerAPI = univerAPI
+
   setupToolbar(univerAPI)
 }
 
