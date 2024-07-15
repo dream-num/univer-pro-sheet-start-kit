@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
-  "description": "A starter kit for Univer Pro Sheet",
+  "description": "A starter kit for Univer Server",
   "scripts": {
     "prepare": "simple-git-hooks",
     "dev": "vite",

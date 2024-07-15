@@ -1,18 +1,18 @@
-# univer-pro-sheet-start-kit
+# Univer Sheet With Server Start-Kit
 
-This template can help you get started with using the Univer Pro, and you can use the code inside to create useful applications.
+This template can help you get started with using the Univer Server, and you can use the code inside to create useful applications.
 
-- [x] collaboration plugin with Univer Pro API
-- [x] exchange plugin with Univer Pro API
-- [x] print plugin with Univer Pro API
+- [x] collaboration plugin with Univer Server
+- [x] exchange plugin with Univer Server
+- [x] print plugin with Univer Server
 
-## More about Univer Pro
+## More about Univer Server
 
-You can find more information about Univer Pro [here](https://univer.ai/guides/sheet/introduction).
+You can find more information about Univer Server [here](https://univer.ai/guides/sheet/introduction).
 
 ## How to use
 
-First, you need to deploy Univer Pro with Docker, you can follow the instructions [here](https://univer.ai/guides/sheet/server/docker).
+First, you need to deploy Univer Server with Docker, you can follow the instructions [here](https://univer.ai/guides/sheet/server/docker).
 
 Then, you can use the following command to start the application:
 
