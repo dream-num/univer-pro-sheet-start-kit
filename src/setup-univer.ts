@@ -10,7 +10,7 @@ import '@univerjs-pro/live-share/lib/index.css'
 import '@univerjs-pro/sheets-print/lib/index.css'
 import '@univerjs-pro/sheets-exchange-client/lib/index.css'
 
-import { IAuthzIoService, IUndoRedoService, LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core'
+import { IAuthzIoService, IConfigService, IUndoRedoService, LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core'
 import { defaultTheme } from '@univerjs/design'
 import { UniverDocsPlugin } from '@univerjs/docs'
 import { UniverDocsUIPlugin } from '@univerjs/docs-ui'
@@ -25,7 +25,7 @@ import { UniverSheetsConditionalFormattingUIPlugin } from '@univerjs/sheets-cond
 import { FUniver } from '@univerjs/facade'
 
 import { UniverCollaborationPlugin } from '@univerjs-pro/collaboration'
-import { UniverCollaborationClientPlugin } from '@univerjs-pro/collaboration-client'
+import { AUTHZ_URL_KEY, COLLAB_SUBMIT_CHANGESET_URL_KEY, COLLAB_WEB_SOCKET_URL_KEY, SNAPSHOT_SERVER_URL_KEY, UniverCollaborationClientPlugin } from '@univerjs-pro/collaboration-client'
 import { UniverLiveSharePlugin } from '@univerjs-pro/live-share'
 import { UniverSheetsPrintPlugin } from '@univerjs-pro/sheets-print'
 import { UniverSheetsExchangeClientPlugin } from '@univerjs-pro/sheets-exchange-client'
@@ -64,6 +64,17 @@ export function setupUniver() {
   univer.registerPlugin(UniverFormulaEnginePlugin)
   univer.registerPlugin(UniverSheetsFormulaPlugin)
   univer.registerPlugin(UniverSheetsConditionalFormattingUIPlugin)
+
+  const injector = univer.__getInjector()
+  const configService = injector.get(IConfigService)
+
+  const universerEndpoint = window.location.host
+
+  // config collaboration endpoint
+  configService.setConfig(AUTHZ_URL_KEY, `http://${universerEndpoint}/universer-api/authz`)
+  configService.setConfig(SNAPSHOT_SERVER_URL_KEY, `http://${universerEndpoint}/universer-api/snapshot`)
+  configService.setConfig(COLLAB_SUBMIT_CHANGESET_URL_KEY, `http://${universerEndpoint}/universer-api/comb`)
+  configService.setConfig(COLLAB_WEB_SOCKET_URL_KEY, `ws://${universerEndpoint}/universer-api/comb/connect`)
 
   // collaboration plugins
   univer.registerPlugin(UniverCollaborationPlugin)
