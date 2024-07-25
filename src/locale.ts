@@ -1,4 +1,4 @@
-import { LocaleType } from '@univerjs/core'
+import { LocaleType, Tools } from '@univerjs/core'
 import UniverDesignEnUS from '@univerjs/design/locale/en-US'
 import UniverDocsUIEnUS from '@univerjs/docs-ui/locale/en-US'
 import UniverSheetsEnUS from '@univerjs/sheets/locale/en-US'
@@ -12,16 +12,16 @@ import SheetsPrintEnUS from '@univerjs-pro/sheets-print/locale/en-US'
 import UniverSheetsExchangeClientEnUS from '@univerjs-pro/sheets-exchange-client/locale/en-US'
 
 export const locales = {
-  [LocaleType.EN_US]: {
-    ...UniverSheetsEnUS,
-    ...UniverDocsUIEnUS,
-    ...UniverUiEnUS,
-    ...UniverDesignEnUS,
-    ...CollaborationClientEnUS,
-    ...SheetsPrintEnUS,
-    ...UniverSheetsExchangeClientEnUS,
-    ...UniverSheetsConditionalFormattingUiEnUS,
-    ...UniverSheetsUIEnUS,
-    ...UniverSheetsNumfmtPluginUiEnUS,
-  },
+  [LocaleType.EN_US]: Tools.deepMerge(
+    UniverSheetsEnUS,
+    UniverDocsUIEnUS,
+    UniverUiEnUS,
+    UniverDesignEnUS,
+    CollaborationClientEnUS,
+    SheetsPrintEnUS,
+    UniverSheetsExchangeClientEnUS,
+    UniverSheetsConditionalFormattingUiEnUS,
+    UniverSheetsUIEnUS,
+    UniverSheetsNumfmtPluginUiEnUS,
+  ),
 }
