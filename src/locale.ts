@@ -9,7 +9,7 @@ import UniverSheetsNumfmtPluginUiEnUS from '@univerjs/sheets-numfmt/locale/en-US
 
 import CollaborationClientEnUS from '@univerjs-pro/collaboration-client/locale/en-US'
 import SheetsPrintEnUS from '@univerjs-pro/sheets-print/locale/en-US'
-import UniverSheetsExchangeClientEnUS from '@univerjs-pro/sheets-exchange-client/locale/en-US'
+import UniverExchangeClientEnUS from '@univerjs-pro/exchange-client/locale/en-US'
 
 export const locales = {
   [LocaleType.EN_US]: Tools.deepMerge(
@@ -19,7 +19,7 @@ export const locales = {
     UniverDesignEnUS,
     CollaborationClientEnUS,
     SheetsPrintEnUS,
-    UniverSheetsExchangeClientEnUS,
+    UniverExchangeClientEnUS,
     UniverSheetsConditionalFormattingUiEnUS,
     UniverSheetsUIEnUS,
     UniverSheetsNumfmtPluginUiEnUS,

@@ -8,7 +8,7 @@ import '@univerjs/sheets-conditional-formatting-ui/lib/index.css'
 import '@univerjs-pro/collaboration-client/lib/index.css'
 import '@univerjs-pro/live-share/lib/index.css'
 import '@univerjs-pro/sheets-print/lib/index.css'
-import '@univerjs-pro/sheets-exchange-client/lib/index.css'
+import '@univerjs-pro/exchange-client/lib/index.css'
 
 import { IAuthzIoService, IConfigService, IUndoRedoService, LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core'
 import { defaultTheme } from '@univerjs/design'
@@ -25,7 +25,7 @@ import { UniverSheetsConditionalFormattingUIPlugin } from '@univerjs/sheets-cond
 import { FUniver } from '@univerjs/facade'
 
 import { UniverCollaborationPlugin } from '@univerjs-pro/collaboration'
-import { AUTHZ_URL_KEY, COLLAB_SUBMIT_CHANGESET_URL_KEY, COLLAB_WEB_SOCKET_URL_KEY, SNAPSHOT_SERVER_URL_KEY, UniverCollaborationClientPlugin } from '@univerjs-pro/collaboration-client'
+import { AUTHZ_URL_KEY, COLLAB_SUBMIT_CHANGESET_URL_KEY, COLLAB_WEB_SOCKET_URL_KEY, SEND_CHANGESET_TIMEOUT_KEY, SNAPSHOT_SERVER_URL_KEY, UniverCollaborationClientPlugin } from '@univerjs-pro/collaboration-client'
 import { UniverLiveSharePlugin } from '@univerjs-pro/live-share'
 import { UniverSheetsPrintPlugin } from '@univerjs-pro/sheets-print'
 import { UniverSheetsExchangeClientPlugin } from '@univerjs-pro/sheets-exchange-client'
@@ -75,6 +75,7 @@ export function setupUniver() {
   configService.setConfig(SNAPSHOT_SERVER_URL_KEY, `http://${universerEndpoint}/universer-api/snapshot`)
   configService.setConfig(COLLAB_SUBMIT_CHANGESET_URL_KEY, `http://${universerEndpoint}/universer-api/comb`)
   configService.setConfig(COLLAB_WEB_SOCKET_URL_KEY, `ws://${universerEndpoint}/universer-api/comb/connect`)
+  configService.setConfig(SEND_CHANGESET_TIMEOUT_KEY, 200) // 200ms
 
   // collaboration plugins
   univer.registerPlugin(UniverCollaborationPlugin)
