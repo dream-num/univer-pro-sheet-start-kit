@@ -10,6 +10,11 @@ import UniverSheetsNumfmtPluginUiEnUS from '@univerjs/sheets-numfmt/locale/en-US
 import CollaborationClientEnUS from '@univerjs-pro/collaboration-client/locale/en-US'
 import SheetsPrintEnUS from '@univerjs-pro/sheets-print/locale/en-US'
 import UniverExchangeClientEnUS from '@univerjs-pro/exchange-client/locale/en-US'
+import EditHistoryViewerEnUS from '@univerjs-pro/edit-history-viewer/locale/en-US'
+import UniverSheetsPivotEnUs from '@univerjs-pro/sheets-pivot/locale/en-US'
+import UniverSheetsPivotUiEnUs from '@univerjs-pro/sheets-pivot-ui/locale/en-US'
+import UniverSheetsThreadCommentEnUs from '@univerjs/sheets-thread-comment/locale/en-US'
+import UniverThreadCommentUiEnUs from '@univerjs/thread-comment-ui/locale/en-US'
 
 export const locales = {
   [LocaleType.EN_US]: Tools.deepMerge(
@@ -23,5 +28,10 @@ export const locales = {
     UniverSheetsConditionalFormattingUiEnUS,
     UniverSheetsUIEnUS,
     UniverSheetsNumfmtPluginUiEnUS,
+    EditHistoryViewerEnUS,
+    UniverSheetsPivotEnUs,
+    UniverSheetsPivotUiEnUs,
+    UniverSheetsThreadCommentEnUs,
+    UniverThreadCommentUiEnUs,
   ),
 }

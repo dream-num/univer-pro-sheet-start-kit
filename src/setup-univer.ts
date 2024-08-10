@@ -9,6 +9,8 @@ import '@univerjs-pro/collaboration-client/lib/index.css'
 import '@univerjs-pro/live-share/lib/index.css'
 import '@univerjs-pro/sheets-print/lib/index.css'
 import '@univerjs-pro/exchange-client/lib/index.css'
+import '@univerjs-pro/edit-history-viewer/lib/index.css'
+import '@univerjs-pro/sheets-pivot-ui/lib/index.css'
 
 import { IAuthzIoService, IConfigService, IUndoRedoService, LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core'
 import { defaultTheme } from '@univerjs/design'
@@ -29,7 +31,11 @@ import { AUTHZ_URL_KEY, COLLAB_SUBMIT_CHANGESET_URL_KEY, COLLAB_WEB_SOCKET_URL_K
 import { UniverLiveSharePlugin } from '@univerjs-pro/live-share'
 import { UniverSheetsPrintPlugin } from '@univerjs-pro/sheets-print'
 import { UniverSheetsExchangeClientPlugin } from '@univerjs-pro/sheets-exchange-client'
-
+import { UniverSheetsPivotTablePlugin } from '@univerjs-pro/sheets-pivot'
+import { UniverSheetsPivotTableUIPlugin } from '@univerjs-pro/sheets-pivot-ui'
+import { UniverEditHistoryLoaderPlugin } from '@univerjs-pro/edit-history-loader'
+import '@univerjs/thread-comment-ui/lib/index.css'
+import { UniverSheetsThreadCommentPlugin } from '@univerjs/sheets-thread-comment'
 import { locales } from './locale'
 
 export function setupUniver() {
@@ -69,7 +75,6 @@ export function setupUniver() {
   const configService = injector.get(IConfigService)
 
   const universerEndpoint = window.location.host
-
   // config collaboration endpoint
   configService.setConfig(AUTHZ_URL_KEY, `http://${universerEndpoint}/universer-api/authz`)
   configService.setConfig(SNAPSHOT_SERVER_URL_KEY, `http://${universerEndpoint}/universer-api/snapshot`)
@@ -77,6 +82,9 @@ export function setupUniver() {
   configService.setConfig(COLLAB_WEB_SOCKET_URL_KEY, `ws://${universerEndpoint}/universer-api/comb/connect`)
   configService.setConfig(SEND_CHANGESET_TIMEOUT_KEY, 200) // 200ms
 
+  // need equal to the container id, history viewer will use this id to find the container
+  configService.setConfig('UNIVER_CONTAINER_ID', `univer`)
+  univer.registerPlugin(UniverEditHistoryLoaderPlugin)
   // collaboration plugins
   univer.registerPlugin(UniverCollaborationPlugin)
   univer.registerPlugin(UniverCollaborationClientPlugin)
@@ -87,6 +95,16 @@ export function setupUniver() {
 
   // exchange
   univer.registerPlugin(UniverSheetsExchangeClientPlugin)
+
+  // pivot table
+  univer.registerPlugin(UniverSheetsPivotTablePlugin, {
+    notExecuteFormula: true,
+    isServer: true,
+  })
+  univer.registerPlugin(UniverSheetsPivotTableUIPlugin)
+  univer.registerPlugin(UniverSheetsThreadCommentPlugin)
+
+  // univer.registerPlugin(UniverThreadCommentDataSourcePlugin)
 
   // check if the unit is already created
   const url = new URL(window.location.href)
