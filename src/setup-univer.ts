@@ -99,7 +99,7 @@ export function setupUniver() {
   // pivot table
   univer.registerPlugin(UniverSheetsPivotTablePlugin, {
     notExecuteFormula: true,
-    isServer: true,
+    registerInOneThread: true,
   })
   univer.registerPlugin(UniverSheetsPivotTableUIPlugin)
   univer.registerPlugin(UniverSheetsThreadCommentPlugin)
