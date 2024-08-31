@@ -11,6 +11,8 @@ import '@univerjs-pro/sheets-print/lib/index.css'
 import '@univerjs-pro/exchange-client/lib/index.css'
 import '@univerjs-pro/edit-history-viewer/lib/index.css'
 import '@univerjs-pro/sheets-pivot-ui/lib/index.css'
+import '@univerjs/thread-comment-ui/lib/index.css'
+import '@univerjs/sheets-crosshair-highlight/lib/index.css'
 
 import { IAuthzIoService, IConfigService, IUndoRedoService, LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core'
 import { defaultTheme } from '@univerjs/design'
@@ -24,7 +26,7 @@ import { UniverSheetsNumfmtPlugin } from '@univerjs/sheets-numfmt'
 import { UniverSheetsUIPlugin } from '@univerjs/sheets-ui'
 import { UniverUIPlugin } from '@univerjs/ui'
 import { UniverSheetsConditionalFormattingUIPlugin } from '@univerjs/sheets-conditional-formatting-ui'
-import { FUniver } from '@univerjs/facade'
+import { FUniver } from '@univerjs-pro/facade'
 
 import { UniverCollaborationPlugin } from '@univerjs-pro/collaboration'
 import { AUTHZ_URL_KEY, COLLAB_SUBMIT_CHANGESET_URL_KEY, COLLAB_WEB_SOCKET_URL_KEY, SEND_CHANGESET_TIMEOUT_KEY, SNAPSHOT_SERVER_URL_KEY, UniverCollaborationClientPlugin } from '@univerjs-pro/collaboration-client'
@@ -34,8 +36,8 @@ import { UniverSheetsExchangeClientPlugin } from '@univerjs-pro/sheets-exchange-
 import { UniverSheetsPivotTablePlugin } from '@univerjs-pro/sheets-pivot'
 import { UniverSheetsPivotTableUIPlugin } from '@univerjs-pro/sheets-pivot-ui'
 import { UniverEditHistoryLoaderPlugin } from '@univerjs-pro/edit-history-loader'
-import '@univerjs/thread-comment-ui/lib/index.css'
 import { UniverSheetsThreadCommentPlugin } from '@univerjs/sheets-thread-comment'
+import { UniverSheetsCrosshairHighlightPlugin } from '@univerjs/sheets-crosshair-highlight'
 import { locales } from './locale'
 
 export function setupUniver() {
@@ -97,12 +99,10 @@ export function setupUniver() {
   univer.registerPlugin(UniverSheetsExchangeClientPlugin)
 
   // pivot table
-  univer.registerPlugin(UniverSheetsPivotTablePlugin, {
-    notExecuteFormula: true,
-    registerInOneThread: true,
-  })
+  univer.registerPlugin(UniverSheetsPivotTablePlugin)
   univer.registerPlugin(UniverSheetsPivotTableUIPlugin)
   univer.registerPlugin(UniverSheetsThreadCommentPlugin)
+  univer.registerPlugin(UniverSheetsCrosshairHighlightPlugin)
 
   // univer.registerPlugin(UniverThreadCommentDataSourcePlugin)
 
