@@ -46,6 +46,8 @@ import { UniverSheetsDrawingPlugin } from '@univerjs/sheets-drawing'
 import { UniverSheetsDrawingUIPlugin } from '@univerjs/sheets-drawing-ui'
 // #endregion
 
+import { HTTPService } from '@univerjs/network'
+
 import { locales } from './locale'
 
 export function setupUniver() {
@@ -110,6 +112,21 @@ export function setupUniver() {
   univer.registerPlugin(UniverCollaborationPlugin)
   univer.registerPlugin(UniverCollaborationClientPlugin)
   univer.registerPlugin(UniverLiveSharePlugin)
+
+  // Maybe you need to add some headers to the request
+  const httpService = injector.get(HTTPService)
+  httpService.registerHTTPInterceptor({
+    priority: 0,
+    interceptor: (request, next) => {
+      // If you need to add headers to the request, you can do so here
+      // // @ts-expect-error
+      // const headers: Map<string, string[]> = request.headers._headers
+      // // Add your headers here, for example:
+      // headers.set('Authorization', ['Bearer 123'])
+
+      return next(request)
+    },
+  })
 
   // print
   univer.registerPlugin(UniverSheetsPrintPlugin)
