@@ -38,6 +38,14 @@ import { UniverSheetsPivotTableUIPlugin } from '@univerjs-pro/sheets-pivot-ui'
 import { UniverEditHistoryLoaderPlugin } from '@univerjs-pro/edit-history-loader'
 import { UniverSheetsThreadCommentPlugin } from '@univerjs/sheets-thread-comment'
 import { UniverSheetsCrosshairHighlightPlugin } from '@univerjs/sheets-crosshair-highlight'
+
+// #region Drawing
+import { IImageIoService, UniverDrawingPlugin } from '@univerjs/drawing'
+import { UniverDrawingUIPlugin } from '@univerjs/drawing-ui'
+import { UniverSheetsDrawingPlugin } from '@univerjs/sheets-drawing'
+import { UniverSheetsDrawingUIPlugin } from '@univerjs/sheets-drawing-ui'
+// #endregion
+
 import { locales } from './locale'
 
 export function setupUniver() {
@@ -72,6 +80,17 @@ export function setupUniver() {
   univer.registerPlugin(UniverFormulaEnginePlugin)
   univer.registerPlugin(UniverSheetsFormulaPlugin)
   univer.registerPlugin(UniverSheetsConditionalFormattingUIPlugin)
+
+  // #region Drawing
+  univer.registerPlugin(UniverDrawingPlugin, {
+    override: [
+      [IImageIoService, null], // with CollaborationClientPlugin
+    ],
+  })
+  univer.registerPlugin(UniverDrawingUIPlugin)
+  univer.registerPlugin(UniverSheetsDrawingPlugin)
+  univer.registerPlugin(UniverSheetsDrawingUIPlugin)
+  // #endregion
 
   const injector = univer.__getInjector()
   const configService = injector.get(IConfigService)
