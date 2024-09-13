@@ -6,7 +6,7 @@ import '@univerjs/sheets-numfmt/lib/index.css'
 import '@univerjs/sheets-conditional-formatting-ui/lib/index.css'
 
 import '@univerjs-pro/collaboration-client/lib/index.css'
-import '@univerjs-pro/live-share/lib/index.css'
+// import '@univerjs-pro/live-share/lib/index.css'
 import '@univerjs-pro/sheets-print/lib/index.css'
 import '@univerjs-pro/exchange-client/lib/index.css'
 import '@univerjs-pro/edit-history-viewer/lib/index.css'
@@ -30,7 +30,7 @@ import { FUniver } from '@univerjs-pro/facade'
 
 import { UniverCollaborationPlugin } from '@univerjs-pro/collaboration'
 import { AUTHZ_URL_KEY, COLLAB_SUBMIT_CHANGESET_URL_KEY, COLLAB_WEB_SOCKET_URL_KEY, SEND_CHANGESET_TIMEOUT_KEY, SNAPSHOT_SERVER_URL_KEY, UniverCollaborationClientPlugin } from '@univerjs-pro/collaboration-client'
-import { UniverLiveSharePlugin } from '@univerjs-pro/live-share'
+// import { UniverLiveSharePlugin } from '@univerjs-pro/live-share'
 import { UniverSheetsPrintPlugin } from '@univerjs-pro/sheets-print'
 import { UniverSheetsExchangeClientPlugin } from '@univerjs-pro/sheets-exchange-client'
 import { UniverSheetsPivotTablePlugin } from '@univerjs-pro/sheets-pivot'
@@ -111,7 +111,7 @@ export function setupUniver() {
   // collaboration plugins
   univer.registerPlugin(UniverCollaborationPlugin)
   univer.registerPlugin(UniverCollaborationClientPlugin)
-  univer.registerPlugin(UniverLiveSharePlugin)
+  // univer.registerPlugin(UniverLiveSharePlugin)
 
   // Maybe you need to add some headers to the request
   const httpService = injector.get(HTTPService)
