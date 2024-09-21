@@ -13,6 +13,7 @@ import '@univerjs-pro/edit-history-viewer/lib/index.css'
 import '@univerjs-pro/sheets-pivot-ui/lib/index.css'
 import '@univerjs/thread-comment-ui/lib/index.css'
 import '@univerjs/sheets-crosshair-highlight/lib/index.css'
+import '@univerjs/find-replace/lib/index.css'
 
 import { IAuthzIoService, IConfigService, IUndoRedoService, LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core'
 import { defaultTheme } from '@univerjs/design'
@@ -38,6 +39,8 @@ import { UniverSheetsPivotTableUIPlugin } from '@univerjs-pro/sheets-pivot-ui'
 import { UniverEditHistoryLoaderPlugin } from '@univerjs-pro/edit-history-loader'
 import { UniverSheetsThreadCommentPlugin } from '@univerjs/sheets-thread-comment'
 import { UniverSheetsCrosshairHighlightPlugin } from '@univerjs/sheets-crosshair-highlight'
+import { UniverFindReplacePlugin } from '@univerjs/find-replace'
+import { UniverSheetsFindReplacePlugin } from '@univerjs/sheets-find-replace'
 
 // #region Drawing
 import { IImageIoService, UniverDrawingPlugin } from '@univerjs/drawing'
@@ -93,6 +96,10 @@ export function setupUniver() {
   univer.registerPlugin(UniverSheetsDrawingPlugin)
   univer.registerPlugin(UniverSheetsDrawingUIPlugin)
   // #endregion
+
+  // find-replace
+  univer.registerPlugin(UniverFindReplacePlugin)
+  univer.registerPlugin(UniverSheetsFindReplacePlugin)
 
   const injector = univer.__getInjector()
   const configService = injector.get(IConfigService)

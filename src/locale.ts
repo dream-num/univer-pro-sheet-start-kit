@@ -15,6 +15,8 @@ import UniverSheetsPivotEnUs from '@univerjs-pro/sheets-pivot/locale/en-US'
 import UniverSheetsPivotUiEnUs from '@univerjs-pro/sheets-pivot-ui/locale/en-US'
 import UniverSheetsThreadCommentEnUs from '@univerjs/sheets-thread-comment/locale/en-US'
 import UniverThreadCommentUiEnUs from '@univerjs/thread-comment-ui/locale/en-US'
+import FindReplaceZhCN from '@univerjs/find-replace/locale/zh-CN'
+import SheetsFindReplaceZhCN from '@univerjs/sheets-find-replace/locale/zh-CN'
 
 export const locales = {
   [LocaleType.EN_US]: Tools.deepMerge(
@@ -33,5 +35,7 @@ export const locales = {
     UniverSheetsPivotUiEnUs,
     UniverSheetsThreadCommentEnUs,
     UniverThreadCommentUiEnUs,
+    FindReplaceZhCN,
+    SheetsFindReplaceZhCN,
   ),
 }
