@@ -1,0 +1,55 @@
+name: 🎉 Push Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-docker-image:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Run build task
+        run: |
+          pnpm build
+
+      - name: Login to Aliyun Container Registry (ACR)
+        uses: aliyun/acr-login@v1
+        with:
+          login-server: univer-acr-registry.cn-shenzhen.cr.aliyuncs.com
+          region-id: cn-shenzhen
+          username: '${{ secrets.REGISTRY_USERNAME }}'
+          password: '${{ secrets.REGISTRY_PASSWORD }}'
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        id: buildx
+
+      - name: Build and Push Docker Image (tag)
+        run: |
+          IMAGE_TAG=${GITHUB_REF/refs\/tags\/v/}
+          make push_image NS=release PUSH_TAG=$IMAGE_TAG BUILDER=${{ steps.buildx.outputs.name }}
+          make push_image_lite NS=release PUSH_TAG=$IMAGE_TAG B
+        if: github.event_name == 'push'
+
+      - name: Build and Push Docker Image (workflow_dispatch)
+        run: |
+          IMAGE_TAG=$(echo "${{ github.sha }}" | cut -c 1-7)
+          make push_image_lite NS=release PUSH_TAG_AS_LATEST=false PUSH_TAG=$IMAGE_TAG BUILDER=${{ steps.buildx.outputs.name }}
+        if: github.event_name == 'workflow_dispatch'

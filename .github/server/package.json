@@ -1,0 +1,19 @@
+{
+  "name": "univer-demo-ui",
+  "private": true,
+  "description": "",
+  "author": "DreamNum Inc. <developer@univer.ai>",
+  "bin": "./server.js",
+  "engines": {
+    "node": ">=18.17.0",
+    "pnpm": ">=8.6.0"
+  },
+  "scripts": {
+    "start": "node ./server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "http-proxy": "^1.18.1"
+  }
+}

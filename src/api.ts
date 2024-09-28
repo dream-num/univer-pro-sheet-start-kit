@@ -430,3 +430,31 @@ export function setupClearStyles($toolbar: HTMLElement, univerAPI: FUniver) {
     univerAPI.executeCommand('sheet.command.clear-selection-format')
   })
 }
+
+export function getTheSourceCode($toolbar: HTMLElement, _univerAPI: FUniver) {
+  const $button = document.createElement('a')
+  const githubIcon = document.createElement('img')
+  githubIcon.src = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
+  githubIcon.style.width = '16px'
+  githubIcon.style.height = '16px'
+  $button.appendChild(githubIcon)
+  $button.appendChild(document.createTextNode('Get the Source Code'))
+  $button.style.display = 'flex'
+  $button.style.alignItems = 'center'
+  $button.style.gap = '4px'
+  $toolbar.appendChild($button)
+
+  $button.addEventListener('click', () => {
+    window.open('https://github.com/dream-num/univer-pro-sheet-start-kit', '_blank')
+  })
+}
+
+export function goToTheGuide($toolbar: HTMLElement, _univerAPI: FUniver) {
+  const $button = document.createElement('a')
+  $button.textContent = 'read the guide'
+  $toolbar.appendChild($button)
+
+  $button.addEventListener('click', () => {
+    window.open('https://univer.ai/guides/sheet/introduction', '_blank')
+  })
+}

@@ -1,5 +1,5 @@
 import type { FUniver } from '@univerjs/facade'
-import { setupClearStyles, setupCommandsListenerSwitch, setupCreateSheet, setupEditSwitch, setupGetSheetData, setupGetValue, setupGetWorkbookData, setupRedo, setupScrollToBottom, setupScrollToCell, setupScrollToTop, setupSetBackground, setupSetSelection, setupSetValue, setupSetValues, setupUndo } from './api'
+import { getTheSourceCode, goToTheGuide, setupClearStyles, setupCommandsListenerSwitch, setupCreateSheet, setupEditSwitch, setupGetSheetData, setupGetValue, setupGetWorkbookData, setupRedo, setupScrollToBottom, setupScrollToCell, setupScrollToTop, setupSetBackground, setupSetSelection, setupSetValue, setupSetValues, setupUndo } from './api'
 
 export function setupToolbar(univerAPI: FUniver) {
   const $toolbar = document.getElementById('toolbar')!
@@ -26,4 +26,7 @@ export function setupToolbar(univerAPI: FUniver) {
 
   setupSetSelection($toolbar, univerAPI)
   setupClearStyles($toolbar, univerAPI)
+
+  goToTheGuide($toolbar, univerAPI)
+  getTheSourceCode($toolbar, univerAPI)
 }
