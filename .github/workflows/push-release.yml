@@ -45,11 +45,10 @@ jobs:
         run: |
           IMAGE_TAG=${GITHUB_REF/refs\/tags\/v/}
           make push_image NS=release PUSH_TAG=$IMAGE_TAG BUILDER=${{ steps.buildx.outputs.name }}
-          make push_image_lite NS=release PUSH_TAG=$IMAGE_TAG B
         if: github.event_name == 'push'
 
       - name: Build and Push Docker Image (workflow_dispatch)
         run: |
           IMAGE_TAG=$(echo "${{ github.sha }}" | cut -c 1-7)
-          make push_image_lite NS=release PUSH_TAG_AS_LATEST=false PUSH_TAG=$IMAGE_TAG BUILDER=${{ steps.buildx.outputs.name }}
+          make push_image NS=release PUSH_TAG_AS_LATEST=false PUSH_TAG=$IMAGE_TAG BUILDER=${{ steps.buildx.outputs.name }}
         if: github.event_name == 'workflow_dispatch'

@@ -2,7 +2,7 @@ CR = univer-acr-registry.cn-shenzhen.cr.aliyuncs.com
 LOCAL_TAG = dev
 PUSH_TAG ?= latest
 PUSH_TAG_AS_LATEST ?= true
-REPOSITORY_LITE = univer-collaboration-lite
+REPOSITORY = univer-collaboration-lite
 NS ?= release
 CTR = docker
 BUILDER ?= univerdemo-builder
@@ -17,25 +17,25 @@ create_builder:
 		$(CTR) buildx create --name $(BUILDER) --use; \
 	fi
 
-.PHONY: build_image_lite
+.PHONY: build_image
 # docker buildx build image for demo
-build_image_lite: create_builder
+build_image: create_builder
 	$(CTR) buildx build \
 		--builder $(BUILDER) \
 		--platform linux/$(shell docker version -f '{{.Server.Arch}}') \
 		--file Dockerfile \
-		-t $(REPOSITORY_LITE):$(LOCAL_TAG) \
+		-t $(REPOSITORY):$(LOCAL_TAG) \
 		--load .
 
-.PHONY: push_image_lite
-# Build and Push multi-platform Docker images for lite
-push_image_lite: create_builder
+.PHONY: push_image
+# Build and Push multi-platform Docker images
+push_image: create_builder
 ifeq ($(PUSH_TAG), latest)
-	$(eval image_tag=-t $(CR)/$(NS)/$(REPOSITORY_LITE):latest)
+	$(eval image_tag=-t $(CR)/$(NS)/$(REPOSITORY):latest)
 else ifeq ($(PUSH_TAG_AS_LATEST), true)
-	$(eval image_tag=-t $(CR)/$(NS)/$(REPOSITORY_LITE):$(PUSH_TAG) -t $(CR)/$(NS)/$(REPOSITORY_LITE):latest)
+	$(eval image_tag=-t $(CR)/$(NS)/$(REPOSITORY):$(PUSH_TAG) -t $(CR)/$(NS)/$(REPOSITORY):latest)
 else
-	$(eval image_tag=-t $(CR)/$(NS)/$(REPOSITORY_LITE):$(PUSH_TAG))
+	$(eval image_tag=-t $(CR)/$(NS)/$(REPOSITORY):$(PUSH_TAG))
 endif
 	$(CTR) buildx build \
 	--builder $(BUILDER) \
