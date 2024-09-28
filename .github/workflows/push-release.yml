@@ -14,7 +14,7 @@ jobs:
   build-docker-image:
     name: Build Docker Image
     runs-on: ubuntu-latest
-
+    if: github.repository == 'dream-num/univer-pro-sheet-start-kit'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
