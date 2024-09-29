@@ -1,5 +1,5 @@
 // eslint
-import type { FUniver } from '@univerjs/facade'
+import type { FUniver } from '@univerjs-pro/facade'
 import { ScrollToCellCommand } from '@univerjs/sheets-ui'
 
 export function setupSetValue($toolbar: HTMLElement, univerAPI: FUniver) {
