@@ -1,3 +1,5 @@
+/* eslint-disable node/prefer-global/process */
+
 import '@univerjs/design/lib/index.css'
 import '@univerjs/ui/lib/index.css'
 import '@univerjs/sheets-ui/lib/index.css'
@@ -71,8 +73,8 @@ export function setupUniver() {
   })
 
   univer.registerPlugin(UniverLicensePlugin, {
-    // if you want to use the no-limit feature, you can get 30-day trial license from https://univer.ai/pro/license
-    license: 'your license.txt',
+    // if you want to use the no-limit business feature, you can get 30-day trial license from https://univer.ai/pro/license
+    license: process.env.UNIVER_CLIENT_LICENSE || 'your license.txt',
   })
 
   univer.registerPlugin(UniverRenderEnginePlugin)

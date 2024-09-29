@@ -11,6 +11,9 @@ export default defineConfig({
       },
     },
   },
+  define: {
+    'process.env.UNIVER_CLIENT_LICENSE': '"%%UNIVER_CLIENT_LICENSE_PLACEHOLDER%%"',
+  },
   build: {
     rollupOptions: {
       output: {
