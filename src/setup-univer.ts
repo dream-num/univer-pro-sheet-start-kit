@@ -30,9 +30,10 @@ import { UniverSheetsConditionalFormattingUIPlugin } from '@univerjs/sheets-cond
 import { FUniver } from '@univerjs-pro/facade'
 
 import { UniverCollaborationPlugin } from '@univerjs-pro/collaboration'
-import { AUTHZ_URL_KEY, COLLAB_SUBMIT_CHANGESET_URL_KEY, COLLAB_WEB_SOCKET_URL_KEY, SEND_CHANGESET_TIMEOUT_KEY, SNAPSHOT_SERVER_URL_KEY, UniverCollaborationClientPlugin } from '@univerjs-pro/collaboration-client'
+import { UniverCollaborationClientPlugin } from '@univerjs-pro/collaboration-client'
 // import { UniverLiveSharePlugin } from '@univerjs-pro/live-share'
 import { UniverSheetsPrintPlugin } from '@univerjs-pro/sheets-print'
+import { UniverExchangeClientPlugin } from '@univerjs-pro/exchange-client'
 import { UniverSheetsExchangeClientPlugin } from '@univerjs-pro/sheets-exchange-client'
 import { UniverSheetsPivotTablePlugin } from '@univerjs-pro/sheets-pivot'
 import { UniverSheetsPivotTableUIPlugin } from '@univerjs-pro/sheets-pivot-ui'
@@ -41,6 +42,7 @@ import { UniverSheetsThreadCommentPlugin } from '@univerjs/sheets-thread-comment
 import { UniverSheetsCrosshairHighlightPlugin } from '@univerjs/sheets-crosshair-highlight'
 import { UniverFindReplacePlugin } from '@univerjs/find-replace'
 import { UniverSheetsFindReplacePlugin } from '@univerjs/sheets-find-replace'
+import { UniverLicensePlugin } from '@univerjs-pro/license'
 
 // #region Drawing
 import { IImageIoService, UniverDrawingPlugin } from '@univerjs/drawing'
@@ -68,11 +70,15 @@ export function setupUniver() {
     ],
   })
 
+  univer.registerPlugin(UniverLicensePlugin, {
+    license: 'your license.txt',
+  })
+
+  univer.registerPlugin(UniverRenderEnginePlugin)
+
   univer.registerPlugin(UniverDocsPlugin, {
     hasScroll: false,
   })
-  univer.registerPlugin(UniverDocsUIPlugin)
-  univer.registerPlugin(UniverRenderEnginePlugin)
   univer.registerPlugin(UniverUIPlugin, {
     container: 'univer',
     header: true,
@@ -80,6 +86,7 @@ export function setupUniver() {
   })
   univer.registerPlugin(UniverSheetsPlugin)
   univer.registerPlugin(UniverSheetsUIPlugin)
+  univer.registerPlugin(UniverDocsUIPlugin)
 
   univer.registerPlugin(UniverSheetsNumfmtPlugin)
   univer.registerPlugin(UniverFormulaEnginePlugin)
@@ -105,19 +112,21 @@ export function setupUniver() {
   const configService = injector.get(IConfigService)
 
   const universerEndpoint = window.location.host
-  // config collaboration endpoint
-  configService.setConfig(AUTHZ_URL_KEY, `http://${universerEndpoint}/universer-api/authz`)
-  configService.setConfig(SNAPSHOT_SERVER_URL_KEY, `http://${universerEndpoint}/universer-api/snapshot`)
-  configService.setConfig(COLLAB_SUBMIT_CHANGESET_URL_KEY, `http://${universerEndpoint}/universer-api/comb`)
-  configService.setConfig(COLLAB_WEB_SOCKET_URL_KEY, `ws://${universerEndpoint}/universer-api/comb/connect`)
-  configService.setConfig(SEND_CHANGESET_TIMEOUT_KEY, 200) // 200ms
 
   // need equal to the container id, history viewer will use this id to find the container
   configService.setConfig('UNIVER_CONTAINER_ID', `univer`)
   univer.registerPlugin(UniverEditHistoryLoaderPlugin)
+
   // collaboration plugins
   univer.registerPlugin(UniverCollaborationPlugin)
-  univer.registerPlugin(UniverCollaborationClientPlugin)
+  univer.registerPlugin(UniverCollaborationClientPlugin, {
+    authzUrl: `http://${universerEndpoint}/universer-api/authz`,
+    snapshotServerUrl: `http://${universerEndpoint}/universer-api/snapshot`,
+    collabSubmitChangesetUrl: `http://${universerEndpoint}/universer-api/comb`,
+    collabWebSocketUrl: `ws://${universerEndpoint}/universer-api/comb/connect`,
+    sendChangesetTimeout: 200,
+  })
+
   // univer.registerPlugin(UniverLiveSharePlugin)
 
   // Maybe you need to add some headers to the request
@@ -139,6 +148,13 @@ export function setupUniver() {
   univer.registerPlugin(UniverSheetsPrintPlugin)
 
   // exchange
+  univer.registerPlugin(UniverExchangeClientPlugin, {
+    uploadFileServerUrl: `http://${universerEndpoint}/universer-api/stream/file/upload`,
+    importServerUrl: `http://${universerEndpoint}/universer-api/exchange/{type}/import`,
+    exportServerUrl: `http://${universerEndpoint}/universer-api/exchange/{type}/export`,
+    getTaskServerUrl: `http://${universerEndpoint}/universer-api/exchange/task/{taskID}`,
+    signUrlServerUrl: `http://${universerEndpoint}/universer-api/file/{fileID}/sign-url`,
+  })
   univer.registerPlugin(UniverSheetsExchangeClientPlugin)
 
   // pivot table
@@ -156,7 +172,7 @@ export function setupUniver() {
     // waiting for the unit to be loaded
   }
   else {
-    fetch(`/universer-api/snapshot/2/unit/-/create`, {
+    fetch(`http://${universerEndpoint}/universer-api/snapshot/2/unit/-/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
