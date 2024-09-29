@@ -71,6 +71,7 @@ export function setupUniver() {
   })
 
   univer.registerPlugin(UniverLicensePlugin, {
+    // if you want to use the no-limit feature, you can get 30-day trial license from https://univer.ai/pro/license
     license: 'your license.txt',
   })
 
