@@ -458,3 +458,33 @@ export function goToTheGuide($toolbar: HTMLElement, _univerAPI: FUniver) {
     window.open('https://univer.ai/guides/sheet/introduction', '_blank')
   })
 }
+
+/**
+ * with USIP demo
+ * please read the guide first: https://univer.ai/zh-CN/guides/sheet/server/usip
+ * server source code: https://github.com/dream-num/usip-example/tree/main/nodejs-usip
+ */
+export function setupSetUserWithUSIP($toolbar: HTMLElement, _univerAPI: FUniver) {
+  const aliceToken = 'token:1'
+  const bobToken = 'token:2'
+  const charlieToken = 'token:3'
+  const noToken = ''
+
+  const craeteUserButton = (name: string, token: string, title: string) => {
+    const $button = document.createElement('a')
+    $button.textContent = `${name}`
+    $button.title = title
+    $toolbar.appendChild($button)
+
+    $button.addEventListener('click', () => {
+      document.cookie = `x-authorization=${token}`
+      window.location.reload()
+    })
+  }
+
+  // <HelpSingle />
+  craeteUserButton('USIP: Switch to Alice(Owner)', aliceToken, 'When USIP is enabled, the user will be switched to Alice')
+  craeteUserButton('USIP: Switch to Bob(Editor)', bobToken, 'When USIP is enabled, the user will be switched to Bob')
+  craeteUserButton('USIP: Switch to Charlie(Viewer)', charlieToken, 'When USIP is enabled, the user will be switched to Charlie')
+  craeteUserButton('USIP: Switch to NoToken', noToken, 'When USIP is enabled, the user will be switched to NoToken')
+}
