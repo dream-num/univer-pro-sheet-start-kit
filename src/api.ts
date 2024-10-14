@@ -468,6 +468,8 @@ export function setupSetUserWithUSIP($toolbar: HTMLElement, _univerAPI: FUniver)
   const aliceToken = 'token:1'
   const bobToken = 'token:2'
   const charlieToken = 'token:3'
+  const davidToken = 'token:4'
+  const eveToken = 'token:5'
   const noToken = ''
 
   const craeteUserButton = (name: string, token: string, title: string) => {
@@ -484,7 +486,9 @@ export function setupSetUserWithUSIP($toolbar: HTMLElement, _univerAPI: FUniver)
 
   // <HelpSingle />
   craeteUserButton('USIP: Switch to Alice(Owner)', aliceToken, 'When USIP is enabled, the user will be switched to Alice')
-  craeteUserButton('USIP: Switch to Bob(Editor)', bobToken, 'When USIP is enabled, the user will be switched to Bob')
-  craeteUserButton('USIP: Switch to Charlie(Viewer)', charlieToken, 'When USIP is enabled, the user will be switched to Charlie')
+  craeteUserButton('USIP: Switch to Bob(Owner)', bobToken, 'When USIP is enabled, the user will be switched to Bob')
+  craeteUserButton('USIP: Switch to Charlie(Editor)', charlieToken, 'When USIP is enabled, the user will be switched to Charlie')
+  craeteUserButton('USIP: Switch to David(Editor)', davidToken, 'When USIP is enabled, the user will be switched to David')
+  craeteUserButton('USIP: Switch to Eve(Viewer)', eveToken, 'When USIP is enabled, the user will be switched to Eve')
   craeteUserButton('USIP: Switch to NoToken', noToken, 'When USIP is enabled, the user will be switched to NoToken')
 }
