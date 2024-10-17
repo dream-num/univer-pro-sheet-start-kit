@@ -101,6 +101,12 @@ importers:
       '@univerjs/sheets-crosshair-highlight':
         specifier: 0.4.0
         version: 0.4.0(@grpc/grpc-js@1.11.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.1)(typescript@5.6.2)
+      '@univerjs/sheets-data-validation':
+        specifier: ^0.4.0
+        version: 0.4.0(@grpc/grpc-js@1.11.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.1)(typescript@5.6.2)
+      '@univerjs/sheets-data-validation-ui':
+        specifier: ^0.4.0
+        version: 0.4.0(@grpc/grpc-js@1.11.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.1)(typescript@5.6.2)
       '@univerjs/sheets-drawing':
         specifier: 0.4.0
         version: 0.4.0(@univerjs/core@0.4.0(@grpc/grpc-js@1.11.3)(react@18.3.1)(rxjs@7.8.1))(@univerjs/drawing@0.4.0(@grpc/grpc-js@1.11.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.1))

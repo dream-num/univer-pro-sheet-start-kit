@@ -42,6 +42,8 @@
     "@univerjs/sheets-conditional-formatting": "0.4.0",
     "@univerjs/sheets-conditional-formatting-ui": "0.4.0",
     "@univerjs/sheets-crosshair-highlight": "0.4.0",
+    "@univerjs/sheets-data-validation": "^0.4.0",
+    "@univerjs/sheets-data-validation-ui": "^0.4.0",
     "@univerjs/sheets-drawing": "0.4.0",
     "@univerjs/sheets-drawing-ui": "0.4.0",
     "@univerjs/sheets-filter": "0.4.0",

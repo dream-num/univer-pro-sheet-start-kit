@@ -16,6 +16,7 @@ import '@univerjs-pro/sheets-pivot-ui/lib/index.css'
 import '@univerjs/thread-comment-ui/lib/index.css'
 import '@univerjs/sheets-crosshair-highlight/lib/index.css'
 import '@univerjs/find-replace/lib/index.css'
+import '@univerjs/sheets-data-validation-ui/lib/index.css'
 
 import { IAuthzIoService, IConfigService, IUndoRedoService, LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core'
 import { defaultTheme } from '@univerjs/design'
@@ -53,6 +54,10 @@ import { UniverDrawingUIPlugin } from '@univerjs/drawing-ui'
 import { UniverSheetsDrawingPlugin } from '@univerjs/sheets-drawing'
 import { UniverSheetsDrawingUIPlugin } from '@univerjs/sheets-drawing-ui'
 // #endregion
+
+import { UniverDataValidationPlugin } from '@univerjs/data-validation'
+import { UniverSheetsDataValidationPlugin } from '@univerjs/sheets-data-validation'
+import { UniverSheetsDataValidationUIPlugin } from '@univerjs/sheets-data-validation-ui'
 
 import { HTTPService } from '@univerjs/network'
 
@@ -112,6 +117,15 @@ export function setupUniver() {
   // find-replace
   univer.registerPlugin(UniverFindReplacePlugin)
   univer.registerPlugin(UniverSheetsFindReplacePlugin)
+
+  univer.registerPlugin(UniverDataValidationPlugin)
+
+  univer.registerPlugin(UniverSheetsDataValidationPlugin)
+
+  univer.registerPlugin(UniverSheetsDataValidationUIPlugin, {
+    // Whether to show the edit button in the dropdown menu
+    showEditOnDropdown: true,
+  })
 
   const injector = univer.__getInjector()
   const configService = injector.get(IConfigService)
