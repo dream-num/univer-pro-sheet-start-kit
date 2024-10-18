@@ -130,6 +130,7 @@ export function setupUniver() {
   const injector = univer.__getInjector()
   const configService = injector.get(IConfigService)
 
+  // if univer page is not in the same domain as the server, you need to set the following parameters
   const universerEndpoint = window.location.host
 
   // need equal to the container id, history viewer will use this id to find the container
@@ -139,10 +140,11 @@ export function setupUniver() {
   // collaboration plugins
   univer.registerPlugin(UniverCollaborationPlugin)
   univer.registerPlugin(UniverCollaborationClientPlugin, {
-    authzUrl: `http://${universerEndpoint}/universer-api/authz`,
-    snapshotServerUrl: `http://${universerEndpoint}/universer-api/snapshot`,
-    collabSubmitChangesetUrl: `http://${universerEndpoint}/universer-api/comb`,
-    collabWebSocketUrl: `ws://${universerEndpoint}/universer-api/comb/connect`,
+    // if univer page is not in the same domain as the server, you need to set the following parameters
+    // authzUrl: `http://${universerEndpoint}/universer-api/authz`,
+    // snapshotServerUrl: `http://${universerEndpoint}/universer-api/snapshot`,
+    // collabSubmitChangesetUrl: `http://${universerEndpoint}/universer-api/comb`,
+    // collabWebSocketUrl: `ws://${universerEndpoint}/universer-api/comb/connect`,
     sendChangesetTimeout: 200,
   })
 
@@ -168,11 +170,12 @@ export function setupUniver() {
 
   // exchange
   univer.registerPlugin(UniverExchangeClientPlugin, {
-    uploadFileServerUrl: `http://${universerEndpoint}/universer-api/stream/file/upload`,
-    importServerUrl: `http://${universerEndpoint}/universer-api/exchange/{type}/import`,
-    exportServerUrl: `http://${universerEndpoint}/universer-api/exchange/{type}/export`,
-    getTaskServerUrl: `http://${universerEndpoint}/universer-api/exchange/task/{taskID}`,
-    signUrlServerUrl: `http://${universerEndpoint}/universer-api/file/{fileID}/sign-url`,
+    // if univer page is not in the same domain as the server, you need to set the following parameters
+    // uploadFileServerUrl: `http://${universerEndpoint}/universer-api/stream/file/upload`,
+    // importServerUrl: `http://${universerEndpoint}/universer-api/exchange/{type}/import`,
+    // exportServerUrl: `http://${universerEndpoint}/universer-api/exchange/{type}/export`,
+    // getTaskServerUrl: `http://${universerEndpoint}/universer-api/exchange/task/{taskID}`,
+    // signUrlServerUrl: `http://${universerEndpoint}/universer-api/file/{fileID}/sign-url`,
     maxTimeoutTime: 24 * 60 * 60 * 1000, // 24h
   })
   univer.registerPlugin(UniverSheetsExchangeClientPlugin)
@@ -192,7 +195,7 @@ export function setupUniver() {
     // waiting for the unit to be loaded
   }
   else {
-    fetch(`http://${universerEndpoint}/universer-api/snapshot/2/unit/-/create`, {
+    fetch(`//${universerEndpoint}/universer-api/snapshot/2/unit/-/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
