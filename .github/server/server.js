@@ -48,6 +48,8 @@ createSiteStatic()
 
 app.use(express.static(resolve(__dirname, './site-static')))
 
+app.use('/sheet', express.static(resolve(__dirname, './site-static')))
+
 proxy.on('error', (error, req, res) => {
   console.error('proxy error:', error)
   if (!res.headersSent) {
