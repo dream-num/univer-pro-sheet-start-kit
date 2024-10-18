@@ -173,6 +173,7 @@ export function setupUniver() {
     exportServerUrl: `http://${universerEndpoint}/universer-api/exchange/{type}/export`,
     getTaskServerUrl: `http://${universerEndpoint}/universer-api/exchange/task/{taskID}`,
     signUrlServerUrl: `http://${universerEndpoint}/universer-api/file/{fileID}/sign-url`,
+    maxTimeoutTime: 24 * 60 * 60 * 1000, // 24h
   })
   univer.registerPlugin(UniverSheetsExchangeClientPlugin)
 
