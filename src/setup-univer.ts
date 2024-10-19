@@ -132,6 +132,7 @@ export function setupUniver() {
 
   // if univer page is not in the same domain as the server, you need to set the following parameters
   const universerEndpoint = window.location.host
+  const isSecure = window.location.protocol === 'https:'
 
   // need equal to the container id, history viewer will use this id to find the container
   configService.setConfig('UNIVER_CONTAINER_ID', `univer`)
@@ -141,10 +142,10 @@ export function setupUniver() {
   univer.registerPlugin(UniverCollaborationPlugin)
   univer.registerPlugin(UniverCollaborationClientPlugin, {
     // if univer page is not in the same domain as the server, you need to set the following parameters
-    // authzUrl: `http://${universerEndpoint}/universer-api/authz`,
-    // snapshotServerUrl: `http://${universerEndpoint}/universer-api/snapshot`,
-    // collabSubmitChangesetUrl: `http://${universerEndpoint}/universer-api/comb`,
-    // collabWebSocketUrl: `ws://${universerEndpoint}/universer-api/comb/connect`,
+    // authzUrl: `${isSecure ? 'https' : 'http'}://${universerEndpoint}/universer-api/authz`,
+    // snapshotServerUrl: `${isSecure ? 'https' : 'http'}://${universerEndpoint}/universer-api/snapshot`,
+    // collabSubmitChangesetUrl: `${isSecure ? 'https' : 'http'}://${universerEndpoint}/universer-api/comb`,
+    collabWebSocketUrl: `${isSecure ? 'wss' : 'ws'}://${universerEndpoint}/universer-api/comb/connect`,
     sendChangesetTimeout: 200,
   })
 
@@ -171,11 +172,11 @@ export function setupUniver() {
   // exchange
   univer.registerPlugin(UniverExchangeClientPlugin, {
     // if univer page is not in the same domain as the server, you need to set the following parameters
-    // uploadFileServerUrl: `http://${universerEndpoint}/universer-api/stream/file/upload`,
-    // importServerUrl: `http://${universerEndpoint}/universer-api/exchange/{type}/import`,
-    // exportServerUrl: `http://${universerEndpoint}/universer-api/exchange/{type}/export`,
-    // getTaskServerUrl: `http://${universerEndpoint}/universer-api/exchange/task/{taskID}`,
-    // signUrlServerUrl: `http://${universerEndpoint}/universer-api/file/{fileID}/sign-url`,
+    // uploadFileServerUrl: `${isSecure ? 'https' : 'http'}://${universerEndpoint}/universer-api/stream/file/upload`,
+    // importServerUrl: `${isSecure ? 'https' : 'http'}://${universerEndpoint}/universer-api/exchange/{type}/import`,
+    // exportServerUrl: `${isSecure ? 'https' : 'http'}://${universerEndpoint}/universer-api/exchange/{type}/export`,
+    // getTaskServerUrl: `${isSecure ? 'https' : 'http'}://${universerEndpoint}/universer-api/exchange/task/{taskID}`,
+    // signUrlServerUrl: `${isSecure ? 'https' : 'http'}://${universerEndpoint}/universer-api/file/{fileID}/sign-url`,
     maxTimeoutTime: 24 * 60 * 60 * 1000, // 24h
   })
   univer.registerPlugin(UniverSheetsExchangeClientPlugin)
