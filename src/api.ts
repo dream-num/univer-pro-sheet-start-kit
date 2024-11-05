@@ -322,45 +322,20 @@ export function setupEditSwitch($toolbar: HTMLElement, univerAPI: FUniver) {
   $button.textContent = 'disable edit'
   $toolbar.appendChild($button)
   const el = $button
-  let listener: any = null
-  let errListener: any = null
+  let canEdit: boolean = true
 
   $button.addEventListener('click', () => {
     if (!univerAPI)
       throw new Error('univerAPI is not defined')
 
-    class DisableEditError extends Error {
-      constructor() {
-        super('editing is disabled')
-        this.name = 'DisableEditError'
-      }
-    }
+    const activeWorkbook = univerAPI.getActiveWorkbook()
+    if (!activeWorkbook)
+      throw new Error('activeWorkbook is not defined')
 
-    if (listener) {
-      listener.dispose()
-      window.removeEventListener('error', errListener)
-      window.removeEventListener('unhandledrejection', errListener)
-      listener = null
-      el.innerHTML = 'disable edit'
-      return
-    }
+    canEdit = !canEdit
+    activeWorkbook.setEditable(canEdit)
 
-    errListener = (e: PromiseRejectionEvent | ErrorEvent) => {
-      const error = e instanceof PromiseRejectionEvent ? e.reason : e.error
-      if (error instanceof DisableEditError) {
-        e.preventDefault()
-        console.warn('editing is disabled')
-      }
-    }
-    window.addEventListener('error', errListener)
-    window.addEventListener('unhandledrejection', errListener)
-    listener = univerAPI.onBeforeCommandExecute(() => {
-      throw new DisableEditError()
-    })
-
-    // eslint-disable-next-line no-alert
-    alert('Editing is disabled, try to edit a cell to see the effect')
-    el.innerHTML = 'enable edit'
+    el.innerHTML = canEdit ? 'disable edit' : 'enable edit'
   })
 }
 
