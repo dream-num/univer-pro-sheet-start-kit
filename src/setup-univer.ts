@@ -4,7 +4,7 @@ import '@univerjs/design/lib/index.css'
 import '@univerjs/ui/lib/index.css'
 import '@univerjs/sheets-ui/lib/index.css'
 import '@univerjs/sheets-formula-ui/lib/index.css'
-import '@univerjs/sheets-numfmt/lib/index.css'
+import '@univerjs/sheets-numfmt-ui/lib/index.css'
 import '@univerjs/sheets-conditional-formatting-ui/lib/index.css'
 
 import '@univerjs-pro/collaboration-client/lib/index.css'
@@ -28,10 +28,11 @@ import { UniverSheetsPlugin } from '@univerjs/sheets'
 import { UniverSheetsFormulaPlugin } from '@univerjs/sheets-formula'
 import { UniverSheetsFormulaUIPlugin } from '@univerjs/sheets-formula-ui'
 import { UniverSheetsNumfmtPlugin } from '@univerjs/sheets-numfmt'
+import { UniverSheetsNumfmtUIPlugin } from '@univerjs/sheets-numfmt-ui'
 import { UniverSheetsUIPlugin } from '@univerjs/sheets-ui'
 import { UniverUIPlugin } from '@univerjs/ui'
 import { UniverSheetsConditionalFormattingUIPlugin } from '@univerjs/sheets-conditional-formatting-ui'
-import { FUniver } from '@univerjs-pro/facade'
+import { FUniver } from '@univerjs/facade'
 
 import { UniverCollaborationPlugin } from '@univerjs-pro/collaboration'
 import { UniverCollaborationClientPlugin } from '@univerjs-pro/collaboration-client'
@@ -43,6 +44,7 @@ import { UniverSheetsPivotTablePlugin } from '@univerjs-pro/sheets-pivot'
 import { UniverSheetsPivotTableUIPlugin } from '@univerjs-pro/sheets-pivot-ui'
 import { UniverEditHistoryLoaderPlugin } from '@univerjs-pro/edit-history-loader'
 import { UniverSheetsThreadCommentPlugin } from '@univerjs/sheets-thread-comment'
+import { UniverSheetsThreadCommentUIPlugin } from '@univerjs/sheets-thread-comment-ui'
 import { UniverSheetsCrosshairHighlightPlugin } from '@univerjs/sheets-crosshair-highlight'
 import { UniverFindReplacePlugin } from '@univerjs/find-replace'
 import { UniverSheetsFindReplacePlugin } from '@univerjs/sheets-find-replace'
@@ -98,6 +100,7 @@ export function setupUniver() {
   univer.registerPlugin(UniverDocsUIPlugin)
 
   univer.registerPlugin(UniverSheetsNumfmtPlugin)
+  univer.registerPlugin(UniverSheetsNumfmtUIPlugin)
   univer.registerPlugin(UniverFormulaEnginePlugin)
   univer.registerPlugin(UniverSheetsFormulaPlugin)
   univer.registerPlugin(UniverSheetsFormulaUIPlugin)
@@ -185,6 +188,7 @@ export function setupUniver() {
   univer.registerPlugin(UniverSheetsPivotTablePlugin)
   univer.registerPlugin(UniverSheetsPivotTableUIPlugin)
   univer.registerPlugin(UniverSheetsThreadCommentPlugin)
+  univer.registerPlugin(UniverSheetsThreadCommentUIPlugin)
   univer.registerPlugin(UniverSheetsCrosshairHighlightPlugin)
 
   // univer.registerPlugin(UniverThreadCommentDataSourcePlugin)
