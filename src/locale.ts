@@ -20,6 +20,8 @@ import UniverThreadCommentUiEnUs from '@univerjs/thread-comment-ui/locale/en-US'
 import FindReplaceEnUS from '@univerjs/find-replace/locale/en-US'
 import SheetsFindReplaceEnUS from '@univerjs/sheets-find-replace/locale/en-US'
 import UniverSheetsFormulaUIPluginEnUs from '@univerjs/sheets-formula-ui/locale/en-US'
+import UniverSheetsChartEnUs from '@univerjs-pro/sheets-chart/locale/en-US'
+import UniverSheetsChartUiEnUs from '@univerjs-pro/sheets-chart-ui/locale/en-US'
 
 export const locales = {
   [LocaleType.EN_US]: Tools.deepMerge(
@@ -41,5 +43,7 @@ export const locales = {
     UniverThreadCommentUiEnUs,
     FindReplaceEnUS,
     SheetsFindReplaceEnUS,
+    UniverSheetsChartEnUs,
+    UniverSheetsChartUiEnUs,
   ),
 }
