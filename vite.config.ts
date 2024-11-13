@@ -18,6 +18,13 @@ export default ({ mode }) => {
       'process.env.UNIVER_CLIENT_LICENSE': `"${env.UNIVER_CLIENT_LICENSE}"` || '"%%UNIVER_CLIENT_LICENSE_PLACEHOLDER%%"',
     },
     base: './',
+    worker: {
+      rollupOptions: {
+        output: {
+          entryFileNames: 'worker.js',
+        },
+      },
+    },
     build: {
       rollupOptions: {
         output: {

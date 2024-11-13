@@ -33,7 +33,7 @@ function createSiteStatic() {
     console.warn('\x1B[33m%s\x1B[0m', `Warning: Unable to read ${licenseFilePath}. Work on Free Mode, if you want to use the Business Mode, you can get a 30-day free trial license from https://univer.ai/pro/license`)
   }
 
-  const filesToReplace = ['main.js']
+  const filesToReplace = ['main.js', 'worker.js']
   filesToReplace.forEach((file) => {
     const filePath = join(targetDir, file)
     if (fs.existsSync(filePath)) {
