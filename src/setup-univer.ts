@@ -17,6 +17,7 @@ import '@univerjs/thread-comment-ui/lib/index.css'
 import '@univerjs/sheets-crosshair-highlight/lib/index.css'
 import '@univerjs/find-replace/lib/index.css'
 import '@univerjs/sheets-data-validation-ui/lib/index.css'
+import '@univerjs-pro/sheets-chart-ui/lib/index.css'
 
 import { IAuthzIoService, IConfigService, IUndoRedoService, LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core'
 import { defaultTheme } from '@univerjs/design'
@@ -60,6 +61,9 @@ import { UniverSheetsDrawingUIPlugin } from '@univerjs/sheets-drawing-ui'
 import { UniverDataValidationPlugin } from '@univerjs/data-validation'
 import { UniverSheetsDataValidationPlugin } from '@univerjs/sheets-data-validation'
 import { UniverSheetsDataValidationUIPlugin } from '@univerjs/sheets-data-validation-ui'
+
+import { UniverSheetsChartPlugin } from '@univerjs-pro/sheets-chart'
+import { UniverSheetsChartUIPlugin } from '@univerjs-pro/sheets-chart-ui'
 
 import { HTTPService } from '@univerjs/network'
 
@@ -190,6 +194,9 @@ export function setupUniver() {
   univer.registerPlugin(UniverSheetsThreadCommentPlugin)
   univer.registerPlugin(UniverSheetsThreadCommentUIPlugin)
   univer.registerPlugin(UniverSheetsCrosshairHighlightPlugin)
+
+  univer.registerPlugin(UniverSheetsChartPlugin)
+  univer.registerPlugin(UniverSheetsChartUIPlugin)
 
   // univer.registerPlugin(UniverThreadCommentDataSourcePlugin)
 
