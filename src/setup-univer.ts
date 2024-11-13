@@ -23,7 +23,6 @@ import { IAuthzIoService, IConfigService, IUndoRedoService, LocaleType, LogLevel
 import { defaultTheme } from '@univerjs/design'
 import { UniverDocsPlugin } from '@univerjs/docs'
 import { UniverDocsUIPlugin } from '@univerjs/docs-ui'
-import { UniverFormulaEnginePlugin } from '@univerjs/engine-formula'
 import { UniverRenderEnginePlugin } from '@univerjs/engine-render'
 import { UniverSheetsPlugin } from '@univerjs/sheets'
 import { UniverSheetsFormulaPlugin } from '@univerjs/sheets-formula'
@@ -64,8 +63,11 @@ import { UniverSheetsDataValidationUIPlugin } from '@univerjs/sheets-data-valida
 
 import { UniverSheetsChartPlugin } from '@univerjs-pro/sheets-chart'
 import { UniverSheetsChartUIPlugin } from '@univerjs-pro/sheets-chart-ui'
+import { UniverProFormulaEnginePlugin } from '@univerjs-pro/engine-formula'
+import { UniverRPCMainThreadPlugin } from '@univerjs/rpc'
 
 import { HTTPService } from '@univerjs/network'
+import workerURL from './worker.ts?worker&url'
 
 import { locales } from './locale'
 
@@ -99,14 +101,27 @@ export function setupUniver() {
     header: true,
     footer: true,
   })
-  univer.registerPlugin(UniverSheetsPlugin)
+
+  // basic use
+  // univer.registerPlugin(UniverFormulaEnginePlugin)
+  // univer.registerPlugin(UniverSheetsPlugin)
+  // univer.registerPlugin(UniverSheetsFormulaPlugin)
+
+  // advanced use: worker and pro formula engine
+  univer.registerPlugin(UniverRPCMainThreadPlugin, {
+    workerURL: new Worker(new URL(workerURL, import.meta.url), {
+      type: 'module',
+    }),
+  })
+  univer.registerPlugin(UniverProFormulaEnginePlugin, { notExecuteFormula: true })
+  univer.registerPlugin(UniverSheetsPlugin, { notExecuteFormula: true })
+  univer.registerPlugin(UniverSheetsFormulaPlugin, { notExecuteFormula: true })
+
   univer.registerPlugin(UniverSheetsUIPlugin)
   univer.registerPlugin(UniverDocsUIPlugin)
 
   univer.registerPlugin(UniverSheetsNumfmtPlugin)
   univer.registerPlugin(UniverSheetsNumfmtUIPlugin)
-  univer.registerPlugin(UniverFormulaEnginePlugin)
-  univer.registerPlugin(UniverSheetsFormulaPlugin)
   univer.registerPlugin(UniverSheetsFormulaUIPlugin)
   univer.registerPlugin(UniverSheetsConditionalFormattingUIPlugin)
 
@@ -189,7 +204,9 @@ export function setupUniver() {
   univer.registerPlugin(UniverSheetsExchangeClientPlugin)
 
   // pivot table
-  univer.registerPlugin(UniverSheetsPivotTablePlugin)
+  univer.registerPlugin(UniverSheetsPivotTablePlugin, {
+    notExecuteFormula: true,
+  })
   univer.registerPlugin(UniverSheetsPivotTableUIPlugin)
   univer.registerPlugin(UniverSheetsThreadCommentPlugin)
   univer.registerPlugin(UniverSheetsThreadCommentUIPlugin)
