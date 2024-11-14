@@ -15,5 +15,10 @@
     "cors": "^2.8.5",
     "express": "^4.21.0",
     "http-proxy": "^1.18.1"
+  },
+  "pkg": {
+    "scripts": "server.js",
+    "outputPath": "build",
+    "targets": ["node18-win-x64", "node18-linux-x64"]
   }
 }

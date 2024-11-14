@@ -44,11 +44,13 @@ function createSiteStatic() {
   })
 }
 
-createSiteStatic()
+if (!process.pkg) {
+  createSiteStatic()
+}
 
-app.use(express.static(resolve(__dirname, './site-static')))
+app.use(express.static(resolve(process.cwd(), './site-static')))
 
-app.use('/sheet', express.static(resolve(__dirname, './site-static')))
+app.use('/sheet', express.static(resolve(process.cwd(), './site-static')))
 
 proxy.on('error', (error, req, res) => {
   console.error('proxy error:', error)
