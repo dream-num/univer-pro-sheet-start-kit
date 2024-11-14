@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const fs = require('node:fs')
+const path = require('node:path')
 const { resolve, join } = require('node:path')
 const process = require('node:process')
 
@@ -14,16 +15,12 @@ app.use(cors({
   origin: '*',
 }))
 
-function createSiteStatic() {
-  const sourceDir = resolve(__dirname, './dist')
-  const targetDir = resolve(__dirname, './site-static')
+// 添加一个全局变量来存储替换后的文件内容
+const replacedFiles = new Map()
 
-  if (fs.existsSync(targetDir)) {
-    fs.rmSync(targetDir, { recursive: true, force: true })
-  }
-
-  fs.cpSync(sourceDir, targetDir, { recursive: true })
-
+function prepareReplacedFiles() {
+  const staticDir = path.join(__dirname, './site-static')
+  console.log('staticDir', staticDir)
   let licenseContent = ''
   const licenseFilePath = '/data/configs/license.txt'
   try {
@@ -35,22 +32,33 @@ function createSiteStatic() {
 
   const filesToReplace = ['main.js']
   filesToReplace.forEach((file) => {
-    const filePath = join(targetDir, file)
+    const filePath = join(staticDir, file)
     if (fs.existsSync(filePath)) {
       let content = fs.readFileSync(filePath, 'utf8')
       content = content.replace(/%%UNIVER_CLIENT_LICENSE_PLACEHOLDER%%/g, licenseContent)
-      fs.writeFileSync(filePath, content, 'utf8')
+      replacedFiles.set(file, content)
     }
   })
 }
 
-if (!process.pkg) {
-  createSiteStatic()
+// 替换原来的createSiteStatic调用
+prepareReplacedFiles()
+
+// 添加中间件来处理文件请求
+function handleReplacedFiles(req, res, next) {
+  const fileName = req.path.split('/').pop()
+  if (replacedFiles.has(fileName)) {
+    res.type('application/javascript')
+    return res.send(replacedFiles.get(fileName))
+  }
+  next()
 }
 
-app.use(express.static(resolve(process.cwd(), './site-static')))
-
-app.use('/sheet', express.static(resolve(process.cwd(), './site-static')))
+// 在静态文件中间件之前添加处理
+app.use(handleReplacedFiles)
+app.use(express.static(resolve(__dirname, './site-static')))
+app.use('/sheet', handleReplacedFiles)
+app.use('/sheet', express.static(resolve(__dirname, './site-static')))
 
 proxy.on('error', (error, req, res) => {
   console.error('proxy error:', error)
