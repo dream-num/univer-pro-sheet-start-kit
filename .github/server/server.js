@@ -7,6 +7,7 @@ const process = require('node:process')
 const cors = require('cors')
 const express = require('express')
 const httpProxy = require('http-proxy')
+const YAML = require('yaml')
 
 const app = express()
 const proxy = httpProxy.createProxyServer({})
@@ -15,6 +16,21 @@ app.use(cors({
   origin: '*',
 }))
 
+const configPath = process.env.CONFIG_DIR || resolve(process.cwd(), 'configs')
+
+if (fs.existsSync(resolve(configPath, 'univer-demo.yaml'))) {
+  const config = YAML.parse(fs.readFileSync(resolve(configPath, 'univer-demo.yaml'), 'utf8'))
+  if (config.port) {
+    process.env.CLIENT_PORT = config.port
+  }
+  if (config.universerEndpoint) {
+    process.env.UNIVERSER_ENDPOINT = config.universerEndpoint
+  }
+  if (config.license) {
+    process.env.LICENSE_PATH = config.license
+  }
+}
+
 // 添加一个全局变量来存储替换后的文件内容
 const replacedFiles = new Map()
 
@@ -22,7 +38,7 @@ function prepareReplacedFiles() {
   const staticDir = path.join(__dirname, './site-static')
   console.log('staticDir', staticDir)
   let licenseContent = ''
-  const licenseFilePath = '/data/configs/license.txt'
+  const licenseFilePath = process.env.LICENSE_PATH || '/data/configs/license.txt'
   try {
     licenseContent = fs.readFileSync(licenseFilePath, 'utf8')
   }

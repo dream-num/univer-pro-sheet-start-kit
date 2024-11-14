@@ -15,12 +15,18 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.0",
-    "http-proxy": "^1.18.1"
+    "http-proxy": "^1.18.1",
+    "yaml": "^2.6.0"
   },
   "pkg": {
     "scripts": "server.js",
     "outputPath": "build",
-    "targets": ["node18-win-x64", "node18-linux-x64"],
-    "assets": ["site-static"]
+    "targets": [
+      "node18-win-x64",
+      "node18-linux-x64"
+    ],
+    "assets": [
+      "site-static"
+    ]
   }
 }
