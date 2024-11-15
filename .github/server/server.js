@@ -16,7 +16,7 @@ app.use(cors({
   origin: '*',
 }))
 
-const configPath = process.env.CONFIG_DIR || resolve(process.cwd(), 'configs')
+const configPath = process.env.UNIVER_CONFIG_DIR || resolve(process.cwd(), 'configs')
 
 if (fs.existsSync(resolve(configPath, 'univer-demo.yaml'))) {
   const config = YAML.parse(fs.readFileSync(resolve(configPath, 'univer-demo.yaml'), 'utf8'))
