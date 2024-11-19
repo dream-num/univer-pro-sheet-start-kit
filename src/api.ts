@@ -435,32 +435,11 @@ export function goToTheGuide($toolbar: HTMLElement, _univerAPI: FUniver) {
   })
 }
 
-/**
- * with USIP demo
- * please read the guide first: https://univer.ai/zh-CN/guides/sheet/server/usip
- * server source code: https://github.com/dream-num/usip-example/tree/main/nodejs-usip
- */
-export function setupSetUserWithUSIP($toolbar: HTMLElement, _univerAPI: FUniver) {
-  const aliceToken = 'token:1'
-  const bobToken = 'token:2'
-  const charlieToken = 'token:3'
-  const noToken = ''
-
-  const craeteUserButton = (name: string, token: string, title: string) => {
-    const $button = document.createElement('a')
-    $button.textContent = `${name}`
-    $button.title = title
-    $toolbar.appendChild($button)
-
-    $button.addEventListener('click', () => {
-      document.cookie = `x-authorization=${token}`
-      window.location.reload()
-    })
-  }
-
-  // <HelpSingle />
-  craeteUserButton('USIP: Switch to Alice(Owner)', aliceToken, 'When USIP is enabled, the user will be switched to Alice')
-  craeteUserButton('USIP: Switch to Bob(Editor)', bobToken, 'When USIP is enabled, the user will be switched to Bob')
-  craeteUserButton('USIP: Switch to Charlie(Viewer)', charlieToken, 'When USIP is enabled, the user will be switched to Charlie')
-  craeteUserButton('USIP: Switch to NoToken', noToken, 'When USIP is enabled, the user will be switched to NoToken')
+export function setupVersion($toolbar: HTMLElement) {
+  const $button = document.createElement('a')
+  // eslint-disable-next-line node/prefer-global/process
+  $button.textContent = `version: ${process.env.UNIVER_VERSION}`
+  $button.href = 'https://github.com/dream-num/univer'
+  $button.target = '_blank'
+  $toolbar.appendChild($button)
 }

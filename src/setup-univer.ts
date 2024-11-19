@@ -65,11 +65,11 @@ import { UniverSheetsChartPlugin } from '@univerjs-pro/sheets-chart'
 import { UniverSheetsChartUIPlugin } from '@univerjs-pro/sheets-chart-ui'
 import { UniverProFormulaEnginePlugin } from '@univerjs-pro/engine-formula'
 import { UniverRPCMainThreadPlugin } from '@univerjs/rpc'
-
 import { HTTPService } from '@univerjs/network'
 import workerURL from './worker.ts?worker&url'
 
 import { locales } from './locale'
+import { setupUniverDebugPlugin } from './plugins/debug'
 
 export function setupUniver() {
   const univer = new Univer({
@@ -148,6 +148,8 @@ export function setupUniver() {
     // Whether to show the edit button in the dropdown menu
     showEditOnDropdown: true,
   })
+
+  setupUniverDebugPlugin(univer)
 
   const injector = univer.__getInjector()
   const configService = injector.get(IConfigService)

@@ -1,5 +1,6 @@
 import process from 'node:process'
 import { defineConfig, loadEnv } from 'vite'
+import packageJson from './package.json'
 
 export default ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
@@ -16,6 +17,7 @@ export default ({ mode }) => {
     },
     define: {
       'process.env.UNIVER_CLIENT_LICENSE': `"${env.UNIVER_CLIENT_LICENSE}"` || '"%%UNIVER_CLIENT_LICENSE_PLACEHOLDER%%"',
+      'process.env.UNIVER_VERSION': `"${packageJson.dependencies['@univerjs/core']}"`,
     },
     base: './',
     worker: {

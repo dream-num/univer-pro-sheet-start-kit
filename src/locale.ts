@@ -25,8 +25,6 @@ import UniverSheetsChartUiEnUs from '@univerjs-pro/sheets-chart-ui/locale/en-US'
 import UniverSheetsDataValidationUiEnUs from '@univerjs/sheets-data-validation-ui/locale/en-US'
 import UniverSheetsCrosshairHighlightEnUs from '@univerjs/sheets-crosshair-highlight/locale/en-US'
 import UniverSheetsDrawingUiEnUs from '@univerjs/sheets-drawing-ui/locale/en-US'
-// eslint-disable-next-line ts/ban-ts-comment
-// @ts-ignore
 import UniverSheetsFormulaEnUs from '@univerjs/sheets-formula/locale/en-US'
 
 export const locales = {
