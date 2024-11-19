@@ -71,7 +71,7 @@ jobs:
       - name: Set version output
         id: version
         run: |
-          echo ::set-output name=version::${GITHUB_REF/refs\/tags\/v/}
+          echo "version=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_OUTPUT
 
       - uses: hexf00/upload-to-oss@v1
         with:
