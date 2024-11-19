@@ -22,8 +22,7 @@
     "scripts": "server.js",
     "outputPath": "build",
     "targets": [
-      "node18-win-x64",
-      "node18-linux-x64"
+      "node18-win-x64"
     ],
     "assets": [
       "site-static"
