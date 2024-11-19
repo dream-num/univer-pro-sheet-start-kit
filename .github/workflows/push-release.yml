@@ -75,7 +75,7 @@ jobs:
 
       - uses: hexf00/upload-to-oss@v1
         with:
-          source: .github/server/build/univer-demo-ui-win.exe
+          source: .github/server/build/univer-demo-ui.exe
           dest: releases/v${{ steps.version.outputs.version }}/binary/demo-ui.exe
           bucket: release-univer
           region: oss-cn-shenzhen
