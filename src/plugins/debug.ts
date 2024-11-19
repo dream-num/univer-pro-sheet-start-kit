@@ -7,9 +7,8 @@ export function setupUniverDebugPlugin(univer: Univer) {
   const isEnableRecord = !!query.get('record')
   if (isEnableRecord) {
     univer.registerPlugin(UniverActionRecorderPlugin, { replayOnly: !isEnableRecord })
+    // eslint-disable-next-line ts/ban-ts-comment
+    // @ts-expect-error
+    window.actionReplayAPI = univer.__getInjector().get(ActionReplayService)
   }
-
-  // eslint-disable-next-line ts/ban-ts-comment
-  // @ts-expect-error
-  window.actionReplayAPI = univer.__getInjector().get(ActionReplayService)
 }
