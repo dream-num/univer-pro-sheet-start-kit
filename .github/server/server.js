@@ -18,12 +18,12 @@ app.use(cors({
 
 const config = (() => {
   const configPath = process.env.UNIVER_CONFIG_DIR || resolve(process.cwd(), 'configs')
-  if (fs.existsSync(resolve(configPath, 'univer-demo.yaml'))) {
-    const config = YAML.parse(fs.readFileSync(resolve(configPath, 'univer-demo.yaml'), 'utf8'))
+  if (fs.existsSync(resolve(configPath, 'demo-ui.yaml'))) {
+    const config = YAML.parse(fs.readFileSync(resolve(configPath, 'demo-ui.yaml'), 'utf8'))
     return config
   }
   else {
-    console.info('\x1B[36m%s\x1B[0m', `Info: No univer-demo.yaml found in the ${configPath}, using default settings`)
+    console.info('\x1B[36m%s\x1B[0m', `Info: No demo-ui.yaml found in the ${configPath}, using default settings`)
     return {}
   }
 })()
