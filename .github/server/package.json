@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "node ./server.js",
-    "build:pkg": "cp -r ../../dist ./site-static && pnpm i && pnpm dlx pkg ."
+    "build:pkg": "cp -r ../../dist ./site-static && pnpm i && pnpm dlx pkg . --no-bytecode --public-packages \"*\" --public"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -22,7 +22,8 @@
     "scripts": "server.js",
     "outputPath": "build",
     "targets": [
-      "node18-win-x64"
+      "node18-win-x64",
+      "node18-macos-arm64"
     ],
     "assets": [
       "site-static"
