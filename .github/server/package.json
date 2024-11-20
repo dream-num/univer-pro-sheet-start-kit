@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "node ./server.js",
-    "build:pkg": "cp -r ../../dist ./site-static && pnpm dlx pkg ."
+    "build:pkg": "cp -r ../../dist ./site-static && pnpm i && pnpm dlx pkg ."
   },
   "dependencies": {
     "cors": "^2.8.5",
