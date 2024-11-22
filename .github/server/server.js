@@ -86,7 +86,7 @@ app.all('/universer-api/*', (req, res) => {
   })
 })
 
-const server = app.listen(config?.port || process.env.CLIENT_PORT || 3010, () => {
+const server = app.listen(config?.port || process.env.CLIENT_PORT || 3010, config?.host || '0.0.0.0', () => {
   console.log('\x1B[36m%s\x1B[0m', `Univer Demo UI running on http://localhost:${server.address().port}`)
   console.log('\x1B[36m%s\x1B[0m', 'Get the Demo UI Source Code: https://github.com/dream-num/univer-pro-sheet-start-kit')
   console.log('\x1B[32m%s\x1B[0m', 'If you want to integrate the Univer frontend SDK, please read: https://univer.ai/guides/sheet/getting-started/quickstart')

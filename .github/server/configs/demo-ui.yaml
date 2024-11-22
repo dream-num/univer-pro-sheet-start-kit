@@ -1,5 +1,7 @@
 port: 3010
 
+host: 127.0.0.1
+
 universerEndpoint: http://universer:8000
 
 license: /data/configs/license.txt
