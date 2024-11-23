@@ -1,6 +1,8 @@
 import '@univerjs/presets/lib/styles/preset-sheets-core.css'
 import '@univerjs/presets/lib/styles/preset-sheets-advanced.css'
 import '@univerjs/presets/lib/styles/preset-sheets-filter.css'
+// import '@univerjs/presets/lib/styles/preset-sheets-collaboration.css'
+import '@univerjs-pro/collaboration-client/lib/index.css'
 import '@univerjs/presets/lib/styles/preset-sheets-thread-comment.css'
 import '@univerjs/presets/lib/styles/preset-sheets-conditional-formatting.css'
 import '@univerjs/presets/lib/styles/preset-sheets-data-validation.css'
