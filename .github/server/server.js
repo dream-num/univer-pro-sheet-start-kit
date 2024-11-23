@@ -42,7 +42,7 @@ function prepareReplacedFiles() {
     console.warn('\x1B[33m%s\x1B[0m', `Warning: Unable to read license.txt. Work on Free Mode, if you want to use the Business Mode, you can get a 30-day free trial license from https://univer.ai/pro/license`)
   }
 
-  const filesToReplace = ['main.js']
+  const filesToReplace = ['main.js', 'worker.js']
   filesToReplace.forEach((file) => {
     const filePath = join(staticDir, file)
     if (fs.existsSync(filePath)) {
@@ -85,6 +85,7 @@ app.all('/universer-api/*', (req, res) => {
     secure: false,
   })
 })
+
 
 let host = '0.0.0.0'
 let port = 3010

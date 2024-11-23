@@ -1,156 +1,127 @@
-/* eslint-disable node/prefer-global/process */
+import '@univerjs/presets/lib/styles/preset-sheets-core.css'
+import '@univerjs/presets/lib/styles/preset-sheets-advanced.css'
+import '@univerjs/presets/lib/styles/preset-sheets-filter.css'
+import '@univerjs/presets/lib/styles/preset-sheets-thread-comment.css'
+import '@univerjs/presets/lib/styles/preset-sheets-conditional-formatting.css'
+import '@univerjs/presets/lib/styles/preset-sheets-data-validation.css'
+import '@univerjs/presets/lib/styles/preset-sheets-drawing.css'
+import '@univerjs/presets/lib/styles/preset-sheets-find-replace.css'
+import '@univerjs/presets/lib/styles/preset-sheets-hyper-link.css'
+import '@univerjs/presets/lib/styles/preset-sheets-sort.css'
 
-import '@univerjs/design/lib/index.css'
-import '@univerjs/ui/lib/index.css'
-import '@univerjs/sheets-ui/lib/index.css'
-import '@univerjs/sheets-formula-ui/lib/index.css'
-import '@univerjs/sheets-numfmt/lib/index.css'
-import '@univerjs/sheets-conditional-formatting-ui/lib/index.css'
+import { LocaleType, LogLevel, Tools, createUniver, defaultTheme } from '@univerjs/presets'
 
-import '@univerjs-pro/collaboration-client/lib/index.css'
-// import '@univerjs-pro/live-share/lib/index.css'
-import '@univerjs-pro/sheets-print/lib/index.css'
-import '@univerjs-pro/exchange-client/lib/index.css'
-import '@univerjs-pro/edit-history-viewer/lib/index.css'
-import '@univerjs-pro/sheets-pivot-ui/lib/index.css'
-import '@univerjs/thread-comment-ui/lib/index.css'
-import '@univerjs/sheets-crosshair-highlight/lib/index.css'
-import '@univerjs/find-replace/lib/index.css'
-import '@univerjs/sheets-data-validation-ui/lib/index.css'
+import { UniverSheetsCorePreset } from '@univerjs/presets/preset-sheets-core'
+import sheetsCoreEnUs from '@univerjs/presets/preset-sheets-core/locales/en-US'
 
-import { IAuthzIoService, IConfigService, IUndoRedoService, LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core'
-import { defaultTheme } from '@univerjs/design'
-import { UniverDocsPlugin } from '@univerjs/docs'
-import { UniverDocsUIPlugin } from '@univerjs/docs-ui'
-import { UniverFormulaEnginePlugin } from '@univerjs/engine-formula'
-import { UniverRenderEnginePlugin } from '@univerjs/engine-render'
-import { UniverSheetsPlugin } from '@univerjs/sheets'
-import { UniverSheetsFormulaPlugin } from '@univerjs/sheets-formula'
-import { UniverSheetsFormulaUIPlugin } from '@univerjs/sheets-formula-ui'
-import { UniverSheetsNumfmtPlugin } from '@univerjs/sheets-numfmt'
-import { UniverSheetsUIPlugin } from '@univerjs/sheets-ui'
-import { UniverUIPlugin } from '@univerjs/ui'
-import { UniverSheetsConditionalFormattingUIPlugin } from '@univerjs/sheets-conditional-formatting-ui'
-import { FUniver } from '@univerjs-pro/facade'
+import { UniverSheetsAdvancedPreset } from '@univerjs/presets/preset-sheets-advanced'
+import sheetsAdvancedEnUs from '@univerjs/presets/preset-sheets-advanced/locales/en-US'
 
-import { UniverCollaborationPlugin } from '@univerjs-pro/collaboration'
-import { UniverCollaborationClientPlugin } from '@univerjs-pro/collaboration-client'
-// import { UniverLiveSharePlugin } from '@univerjs-pro/live-share'
-import { UniverSheetsPrintPlugin } from '@univerjs-pro/sheets-print'
-import { UniverExchangeClientPlugin } from '@univerjs-pro/exchange-client'
-import { UniverSheetsExchangeClientPlugin } from '@univerjs-pro/sheets-exchange-client'
-import { UniverSheetsPivotTablePlugin } from '@univerjs-pro/sheets-pivot'
-import { UniverSheetsPivotTableUIPlugin } from '@univerjs-pro/sheets-pivot-ui'
-import { UniverEditHistoryLoaderPlugin } from '@univerjs-pro/edit-history-loader'
-import { UniverSheetsThreadCommentPlugin } from '@univerjs/sheets-thread-comment'
+import { UniverSheetsCollaborationPreset } from '@univerjs/presets/preset-sheets-collaboration'
+import sheetsCollaborationEnUs from '@univerjs/presets/preset-sheets-collaboration/locales/en-US'
+
+import { UniverSheetsThreadCommentPreset } from '@univerjs/presets/preset-sheets-thread-comment'
+import sheetsThreadCommentEnUs from '@univerjs/presets/preset-sheets-thread-comment/locales/en-US'
+
+import { UniverSheetsConditionalFormattingPreset } from '@univerjs/presets/preset-sheets-conditional-formatting'
+import sheetsConditionalFormattingEnUs from '@univerjs/presets/preset-sheets-conditional-formatting/locales/en-US'
+
+import { UniverSheetsDataValidationPreset } from '@univerjs/presets/preset-sheets-data-validation'
+import sheetsDataValidationEnUs from '@univerjs/presets/preset-sheets-data-validation/locales/en-US'
+
+import { UniverSheetsDrawingPreset } from '@univerjs/presets/preset-sheets-drawing'
+import sheetsDrawingEnUs from '@univerjs/presets/preset-sheets-drawing/locales/en-US'
+
+import { UniverSheetsFilterPreset } from '@univerjs/presets/preset-sheets-filter'
+import sheetsFilterEnUs from '@univerjs/presets/preset-sheets-filter/locales/en-US'
+
+import { UniverSheetsFindReplacePreset } from '@univerjs/presets/preset-sheets-find-replace'
+import sheetsFindReplaceEnUs from '@univerjs/presets/preset-sheets-find-replace/locales/en-US'
+
+import { UniverSheetsHyperLinkPreset } from '@univerjs/presets/preset-sheets-hyper-link'
+import sheetsHyperLinkEnUs from '@univerjs/presets/preset-sheets-hyper-link/locales/en-US'
+
+import { UniverSheetsSortPreset } from '@univerjs/presets/preset-sheets-sort'
+import sheetsSortEnUs from '@univerjs/presets/preset-sheets-sort/locales/en-US'
+
+import { UniverSheetsZenEditorPlugin } from '@univerjs/sheets-zen-editor'
+import sheetsZenEditorEnUs from '@univerjs/sheets-zen-editor/locale/en-US'
+
 import { UniverSheetsCrosshairHighlightPlugin } from '@univerjs/sheets-crosshair-highlight'
-import { UniverFindReplacePlugin } from '@univerjs/find-replace'
-import { UniverSheetsFindReplacePlugin } from '@univerjs/sheets-find-replace'
-import { UniverLicensePlugin } from '@univerjs-pro/license'
-
-// #region Drawing
-import { IImageIoService, UniverDrawingPlugin } from '@univerjs/drawing'
-import { UniverDrawingUIPlugin } from '@univerjs/drawing-ui'
-import { UniverSheetsDrawingPlugin } from '@univerjs/sheets-drawing'
-import { UniverSheetsDrawingUIPlugin } from '@univerjs/sheets-drawing-ui'
-// #endregion
-
-import { UniverDataValidationPlugin } from '@univerjs/data-validation'
-import { UniverSheetsDataValidationPlugin } from '@univerjs/sheets-data-validation'
-import { UniverSheetsDataValidationUIPlugin } from '@univerjs/sheets-data-validation-ui'
 
 import { HTTPService } from '@univerjs/network'
+import { UniverInstanceType } from '@univerjs/core'
+import workerURL from './worker.ts?worker&url'
 
-import { locales } from './locale'
+// import { setupUniverDebugPlugin } from './plugins/debug'
 
 export function setupUniver() {
-  const univer = new Univer({
-    theme: defaultTheme,
+  const universerEndpoint = window.location.host
+
+  const collaboration = true
+
+  const { univerAPI, univer } = createUniver({
     locale: LocaleType.EN_US,
+    locales: {
+      [LocaleType.EN_US]: Tools.deepMerge(
+        {},
+        sheetsCoreEnUs,
+        sheetsAdvancedEnUs,
+        sheetsCollaborationEnUs,
+        sheetsThreadCommentEnUs,
+        sheetsConditionalFormattingEnUs,
+        sheetsDataValidationEnUs,
+        sheetsDrawingEnUs,
+        sheetsFilterEnUs,
+        sheetsFindReplaceEnUs,
+        sheetsHyperLinkEnUs,
+        sheetsSortEnUs,
+        sheetsZenEditorEnUs,
+      ),
+    },
+    collaboration,
     logLevel: LogLevel.VERBOSE,
-    locales,
-    // When enabling the collaboration plugin, set the built-in implementation to `null`.
-    // This avoids double injection issues since the plugin injects its own implementation.
-    // Failure to do so will result in conflicts and errors.
-    override: [
-      [IAuthzIoService, null],
-      [IUndoRedoService, null],
+    theme: defaultTheme,
+    presets: [
+      UniverSheetsCorePreset({
+        container: 'univer',
+        header: true,
+        footer: true,
+        workerURL: new Worker(new URL(workerURL, import.meta.url), {
+          type: 'module',
+        }),
+      }),
+      UniverSheetsDrawingPreset({
+        collaboration,
+      }),
+      UniverSheetsAdvancedPreset({
+        useWorker: true,
+        // if univer page is not in the same domain as the server, you need to set the following parameters
+        universerEndpoint,
+        // if you want to use the no-limit business feature, you can get 30-day trial license from https://univer.ai/pro/license
+        // eslint-disable-next-line node/prefer-global/process
+        license: process.env.UNIVER_CLIENT_LICENSE || 'your license.txt',
+      }),
+      UniverSheetsCollaborationPreset(),
+      UniverSheetsThreadCommentPreset({
+        collaboration,
+      }),
+      UniverSheetsConditionalFormattingPreset(),
+      UniverSheetsDataValidationPreset(),
+      UniverSheetsFilterPreset(),
+      UniverSheetsFindReplacePreset(),
+      UniverSheetsSortPreset(),
+      UniverSheetsHyperLinkPreset(),
+    ],
+    plugins: [
+      UniverSheetsCrosshairHighlightPlugin,
+      UniverSheetsZenEditorPlugin,
     ],
   })
 
-  univer.registerPlugin(UniverLicensePlugin, {
-    // if you want to use the no-limit business feature, you can get 30-day trial license from https://univer.ai/pro/license
-    license: process.env.UNIVER_CLIENT_LICENSE || 'your license.txt',
-  })
-
-  univer.registerPlugin(UniverRenderEnginePlugin)
-
-  univer.registerPlugin(UniverDocsPlugin, {
-    hasScroll: false,
-  })
-  univer.registerPlugin(UniverUIPlugin, {
-    container: 'univer',
-    header: true,
-    footer: true,
-  })
-  univer.registerPlugin(UniverSheetsPlugin)
-  univer.registerPlugin(UniverSheetsUIPlugin)
-  univer.registerPlugin(UniverDocsUIPlugin)
-
-  univer.registerPlugin(UniverSheetsNumfmtPlugin)
-  univer.registerPlugin(UniverFormulaEnginePlugin)
-  univer.registerPlugin(UniverSheetsFormulaPlugin)
-  univer.registerPlugin(UniverSheetsFormulaUIPlugin)
-  univer.registerPlugin(UniverSheetsConditionalFormattingUIPlugin)
-
-  // #region Drawing
-  univer.registerPlugin(UniverDrawingPlugin, {
-    override: [
-      [IImageIoService, null], // with CollaborationClientPlugin
-    ],
-  })
-  univer.registerPlugin(UniverDrawingUIPlugin)
-  univer.registerPlugin(UniverSheetsDrawingPlugin)
-  univer.registerPlugin(UniverSheetsDrawingUIPlugin)
-  // #endregion
-
-  // find-replace
-  univer.registerPlugin(UniverFindReplacePlugin)
-  univer.registerPlugin(UniverSheetsFindReplacePlugin)
-
-  univer.registerPlugin(UniverDataValidationPlugin)
-
-  univer.registerPlugin(UniverSheetsDataValidationPlugin)
-
-  univer.registerPlugin(UniverSheetsDataValidationUIPlugin, {
-    // Whether to show the edit button in the dropdown menu
-    showEditOnDropdown: true,
-  })
+  // setupUniverDebugPlugin(univer)
 
   const injector = univer.__getInjector()
-  const configService = injector.get(IConfigService)
-
-  // if univer page is not in the same domain as the server, you need to set the following parameters
-  const universerEndpoint = window.location.host
-  const isSecure = window.location.protocol === 'https:'
-
-  // need equal to the container id, history viewer will use this id to find the container
-  configService.setConfig('UNIVER_CONTAINER_ID', `univer`)
-  univer.registerPlugin(UniverEditHistoryLoaderPlugin)
-
-  // collaboration plugins
-  univer.registerPlugin(UniverCollaborationPlugin)
-  univer.registerPlugin(UniverCollaborationClientPlugin, {
-    // if univer page is not in the same domain as the server, you need to set the following parameters
-    // authzUrl: `${isSecure ? 'https' : 'http'}://${universerEndpoint}/universer-api/authz`,
-    // snapshotServerUrl: `${isSecure ? 'https' : 'http'}://${universerEndpoint}/universer-api/snapshot`,
-    // collabSubmitChangesetUrl: `${isSecure ? 'https' : 'http'}://${universerEndpoint}/universer-api/comb`,
-    collabWebSocketUrl: `${isSecure ? 'wss' : 'ws'}://${universerEndpoint}/universer-api/comb/connect`,
-    sendChangesetTimeout: 200,
-  })
-
-  // univer.registerPlugin(UniverLiveSharePlugin)
-
   // Maybe you need to add some headers to the request
   const httpService = injector.get(HTTPService)
   httpService.registerHTTPInterceptor({
@@ -166,28 +137,8 @@ export function setupUniver() {
     },
   })
 
-  // print
-  univer.registerPlugin(UniverSheetsPrintPlugin)
-
-  // exchange
-  univer.registerPlugin(UniverExchangeClientPlugin, {
-    // if univer page is not in the same domain as the server, you need to set the following parameters
-    // uploadFileServerUrl: `${isSecure ? 'https' : 'http'}://${universerEndpoint}/universer-api/stream/file/upload`,
-    // importServerUrl: `${isSecure ? 'https' : 'http'}://${universerEndpoint}/universer-api/exchange/{type}/import`,
-    // exportServerUrl: `${isSecure ? 'https' : 'http'}://${universerEndpoint}/universer-api/exchange/{type}/export`,
-    // getTaskServerUrl: `${isSecure ? 'https' : 'http'}://${universerEndpoint}/universer-api/exchange/task/{taskID}`,
-    // signUrlServerUrl: `${isSecure ? 'https' : 'http'}://${universerEndpoint}/universer-api/file/{fileID}/sign-url`,
-    maxTimeoutTime: 24 * 60 * 60 * 1000, // 24h
-  })
-  univer.registerPlugin(UniverSheetsExchangeClientPlugin)
-
-  // pivot table
-  univer.registerPlugin(UniverSheetsPivotTablePlugin)
-  univer.registerPlugin(UniverSheetsPivotTableUIPlugin)
-  univer.registerPlugin(UniverSheetsThreadCommentPlugin)
-  univer.registerPlugin(UniverSheetsCrosshairHighlightPlugin)
-
-  // univer.registerPlugin(UniverThreadCommentDataSourcePlugin)
+  // univer.registerPlugin(UniverSheetsChartPlugin)
+  // univer.registerPlugin(UniverSheetsChartUIPlugin)
 
   // check if the unit is already created
   const url = new URL(window.location.href)
@@ -223,5 +174,5 @@ export function setupUniver() {
     })
   }
 
-  return FUniver.newAPI(univer)
+  return univerAPI
 }

@@ -48,3 +48,8 @@ endif
 # Clean up the builder instance
 clean_builder:
 	@docker buildx rm $(BUILDER)
+
+.PHONY: test_image_run
+test_image_run: create_builder 
+	$(eval image_tag=-t $(REPOSITORY):$(LOCAL_TAG))
+	$(CTR) run --rm -it -p 3010:3010 $(image_tag)
