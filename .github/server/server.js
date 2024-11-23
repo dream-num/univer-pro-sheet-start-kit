@@ -1,11 +1,13 @@
 /* eslint-disable no-console */
 const fs = require('node:fs')
+const path = require('node:path')
 const { resolve, join } = require('node:path')
 const process = require('node:process')
 
 const cors = require('cors')
 const express = require('express')
 const httpProxy = require('http-proxy')
+const YAML = require('yaml')
 
 const app = express()
 const proxy = httpProxy.createProxyServer({})
@@ -14,40 +16,60 @@ app.use(cors({
   origin: '*',
 }))
 
-function createSiteStatic() {
-  const sourceDir = resolve(__dirname, './dist')
-  const targetDir = resolve(__dirname, './site-static')
-
-  if (fs.existsSync(targetDir)) {
-    fs.rmSync(targetDir, { recursive: true, force: true })
+const config = (() => {
+  const configPath = process.env.UNIVER_CONFIG_DIR || resolve(process.cwd(), 'configs')
+  if (fs.existsSync(resolve(configPath, 'univer-demo.yaml'))) {
+    const config = YAML.parse(fs.readFileSync(resolve(configPath, 'univer-demo.yaml'), 'utf8'))
+    return config
   }
+  else {
+    console.info('\x1B[36m%s\x1B[0m', `Info: No univer-demo.yaml found in the ${configPath}, using default settings`)
+    return {}
+  }
+})()
 
-  fs.cpSync(sourceDir, targetDir, { recursive: true })
+// 添加一个全局变量来存储替换后的文件内容
+const replacedFiles = new Map()
 
+function prepareReplacedFiles() {
+  const staticDir = path.join(__dirname, './site-static')
   let licenseContent = ''
-  const licenseFilePath = '/data/configs/license.txt'
+  const licenseFilePath = config?.license || process.env.LICENSE_PATH || (process.pkg ? resolve(process.cwd(), 'configs/license.txt') : '/data/configs/license.txt')
   try {
     licenseContent = fs.readFileSync(licenseFilePath, 'utf8')
   }
   catch {
-    console.warn('\x1B[33m%s\x1B[0m', `Warning: Unable to read ${licenseFilePath}. Work on Free Mode, if you want to use the Business Mode, you can get a 30-day free trial license from https://univer.ai/pro/license`)
+    console.warn('\x1B[33m%s\x1B[0m', `Warning: Unable to read license.txt. Work on Free Mode, if you want to use the Business Mode, you can get a 30-day free trial license from https://univer.ai/pro/license`)
   }
 
-  const filesToReplace = ['main.js']
+  const filesToReplace = ['main.js', 'worker.js']
   filesToReplace.forEach((file) => {
-    const filePath = join(targetDir, file)
+    const filePath = join(staticDir, file)
     if (fs.existsSync(filePath)) {
       let content = fs.readFileSync(filePath, 'utf8')
       content = content.replace(/%%UNIVER_CLIENT_LICENSE_PLACEHOLDER%%/g, licenseContent)
-      fs.writeFileSync(filePath, content, 'utf8')
+      replacedFiles.set(file, content)
     }
   })
 }
 
-createSiteStatic()
+// 替换原来的createSiteStatic调用
+prepareReplacedFiles()
 
+// 添加中间件来处理文件请求
+function handleReplacedFiles(req, res, next) {
+  const fileName = req.path.split('/').pop()
+  if (replacedFiles.has(fileName)) {
+    res.type('application/javascript')
+    return res.send(replacedFiles.get(fileName))
+  }
+  next()
+}
+
+// 在静态文件中间件之前添加处理
+app.use(handleReplacedFiles)
 app.use(express.static(resolve(__dirname, './site-static')))
-
+app.use('/sheet', handleReplacedFiles)
 app.use('/sheet', express.static(resolve(__dirname, './site-static')))
 
 proxy.on('error', (error, req, res) => {
@@ -58,13 +80,13 @@ proxy.on('error', (error, req, res) => {
 })
 app.all('/universer-api/*', (req, res) => {
   proxy.web(req, res, {
-    target: process.env.UNIVERSER_ENDPOINT || 'http://universer:8000',
+    target: config?.universerEndpoint || process.env.UNIVERSER_ENDPOINT || 'http://universer:8000',
     changeOrigin: true,
     secure: false,
   })
 })
 
-const server = app.listen(process.env.CLIENT_PORT || 3010, () => {
+const server = app.listen(config?.port || process.env.CLIENT_PORT || 3010, () => {
   console.log('\x1B[36m%s\x1B[0m', `Univer Demo UI running on http://localhost:${server.address().port}`)
   console.log('\x1B[36m%s\x1B[0m', 'Get the Demo UI Source Code: https://github.com/dream-num/univer-pro-sheet-start-kit')
   console.log('\x1B[32m%s\x1B[0m', 'If you want to integrate the Univer frontend SDK, please read: https://univer.ai/guides/sheet/getting-started/quickstart')
@@ -73,7 +95,7 @@ const server = app.listen(process.env.CLIENT_PORT || 3010, () => {
 
 server.on('upgrade', (req, socket, head) => {
   const proxy = httpProxy.createProxyServer({
-    target: process.env.UNIVERSER_ENDPOINT || 'http://universer:8000',
+    target: config?.universerEndpoint || process.env.UNIVERSER_ENDPOINT || 'http://universer:8000',
     changeOrigin: true,
     secure: false,
     ws: true,

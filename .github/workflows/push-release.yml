@@ -52,3 +52,32 @@ jobs:
           IMAGE_TAG=$(echo "${{ github.sha }}" | cut -c 1-7)
           make push_image NS=release PUSH_TAG_AS_LATEST=false PUSH_TAG=$IMAGE_TAG BUILDER=${{ steps.buildx.outputs.name }}
         if: github.event_name == 'workflow_dispatch'
+
+  build-binary:
+    name: Build Binary
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Run build task
+        run: |
+          pnpm build:pkg
+
+      - name: Set version output
+        id: version
+        run: |
+          echo ::set-output name=version::${GITHUB_REF/refs\/tags\/v/}
+
+      - uses: hexf00/upload-to-oss@v1
+        with:
+          source: .github/server/build/univer-demo-ui.exe
+          dest: releases/v${{ steps.version.outputs.version }}/binary/demo-ui.exe
+          bucket: release-univer
+          region: oss-cn-shenzhen
+          accessKeyId: ${{ secrets.S3_ACCESS_KEY_ID }}
+          accessKeySecret: ${{ secrets.S3_ACCESS_KEY_SECRET }}

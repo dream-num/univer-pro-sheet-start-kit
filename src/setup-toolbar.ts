@@ -1,9 +1,8 @@
-import type { FUniver } from '@univerjs-pro/facade'
-import { getTheSourceCode, goToTheGuide, setupClearStyles, setupCommandsListenerSwitch, setupCreateSheet, setupEditSwitch, setupGetSheetData, setupGetValue, setupGetWorkbookData, setupRedo, setupScrollToBottom, setupScrollToCell, setupScrollToTop, setupSetBackground, setupSetSelection, setupSetUserWithUSIP, setupSetValue, setupSetValues, setupUndo } from './api'
+import type { FUniver } from '@univerjs/facade'
+import { getTheSourceCode, goToTheGuide, setupClearStyles, setupCommandsListenerSwitch, setupCreateSheet, setupEditSwitch, setupGetSheetData, setupGetValue, setupGetWorkbookData, setupRedo, setupScrollToBottom, setupScrollToCell, setupScrollToTop, setupSetBackground, setupSetSelection, setupSetValue, setupSetValues, setupUndo, setupVersion} from './api'
 
 export function setupToolbar(univerAPI: FUniver) {
   const $toolbar = document.getElementById('toolbar')!
-
   setupSetValue($toolbar, univerAPI)
   setupSetValues($toolbar, univerAPI)
   setupGetValue($toolbar, univerAPI)
@@ -27,8 +26,7 @@ export function setupToolbar(univerAPI: FUniver) {
   setupSetSelection($toolbar, univerAPI)
   setupClearStyles($toolbar, univerAPI)
 
-  setupSetUserWithUSIP($toolbar, univerAPI)
-
   goToTheGuide($toolbar, univerAPI)
   getTheSourceCode($toolbar, univerAPI)
+  setupVersion($toolbar)
 }
