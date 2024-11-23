@@ -52,4 +52,4 @@ clean_builder:
 .PHONY: test_image_run
 test_image_run: create_builder 
 	$(eval image_tag=-t $(REPOSITORY):$(LOCAL_TAG))
-	$(CTR) run --rm -it -p 3010:3010 $(image_tag)
+	$(CTR) run --rm -it --network univer-prod -p 3010:3010 $(image_tag)

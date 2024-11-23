@@ -4,6 +4,7 @@ ARG proxy
 
 COPY ./dist ./site-static
 COPY ./.github/server ./
+RUN rm -rf ./configs
 
 ENV UNIVERSER_ENDPOINT=http://universer:8000
 RUN [[ "$proxy" == "" ]] && pnpm install || http_proxy=$proxy https_proxy=$proxy 
