@@ -58,7 +58,7 @@ import workerURL from './worker.ts?worker&url'
 // import { setupUniverDebugPlugin } from './plugins/debug'
 
 export function setupUniver() {
-  const universerEndpoint = window.location.host
+  const universerEndpoint = window.location.origin
 
   const collaboration = true
 
@@ -104,7 +104,9 @@ export function setupUniver() {
         // eslint-disable-next-line node/prefer-global/process
         license: process.env.UNIVER_CLIENT_LICENSE || 'your license.txt',
       }),
-      UniverSheetsCollaborationPreset(),
+      UniverSheetsCollaborationPreset({
+        universerEndpoint,
+      }),
       UniverSheetsThreadCommentPreset({
         collaboration,
       }),
@@ -149,7 +151,7 @@ export function setupUniver() {
     // waiting for the unit to be loaded
   }
   else {
-    fetch(`//${universerEndpoint}/universer-api/snapshot/2/unit/-/create`, {
+    fetch(`${universerEndpoint}/universer-api/snapshot/2/unit/-/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
