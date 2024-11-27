@@ -8,11 +8,11 @@ This template can help you get started with using the Univer Server, and you can
 
 ## More about Univer Server
 
-You can find more information about Univer Server [here](https://univer.ai/guides/sheet/introduction).
+You can find more information about Univer Server [here](https://docs.univer.ai/guides/sheets).
 
 ## How to use
 
-First, you need to deploy Univer Server with Docker, you can follow the instructions [here](https://univer.ai/guides/sheet/server/docker).
+First, you need to deploy Univer Server with Docker, you can follow the instructions [here](https://docs.univer.ai/guides/sheets/pro-features/server/overview).
 
 Then, you can use the following command to start the application:
 
@@ -25,4 +25,4 @@ Open two different browsers and visit `http://localhost:5173/`, you can test the
 
 ## Online Demo
 
-You also can see the online demo [here](https://univer.ai/examples/).
+You also can see the online demo [here](https://univer.ai/features).

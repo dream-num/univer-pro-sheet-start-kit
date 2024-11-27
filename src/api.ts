@@ -23,7 +23,7 @@ export function setupSetValue($toolbar: HTMLElement, univerAPI: FUniver) {
       throw new Error('range is not defined')
 
     /**
-     * @see https://univer.ai/api/facade/classes/FRange.html#setValue
+     * @see https://reference.univer.ai/@univerjs/sheets/facade/classes/FRange#setvalue
      */
     range.setValue(value)
   })
@@ -52,7 +52,7 @@ export function setupSetValues($toolbar: HTMLElement, univerAPI: FUniver) {
       throw new Error('range is not defined')
 
     /**
-     * @see https://univer.ai/api/facade/classes/FRange.html#setValues
+     * @see https://reference.univer.ai/@univerjs/sheets/facade/classes/FRange#setvalues
      */
     range.setValues(values)
   })
@@ -82,7 +82,7 @@ export function setupGetValue($toolbar: HTMLElement, univerAPI: FUniver) {
       throw new Error('range is not defined')
 
     /**
-     * @see https://univer.ai/api/facade/classes/FRange.html#getValue
+     * @see https://reference.univer.ai/@univerjs/sheets/facade/classes/FRange#getvalue
      */
     // eslint-disable-next-line no-alert
     alert(JSON.stringify(range.getValue(), null, 2))
@@ -431,7 +431,7 @@ export function goToTheGuide($toolbar: HTMLElement, _univerAPI: FUniver) {
   $toolbar.appendChild($button)
 
   $button.addEventListener('click', () => {
-    window.open('https://univer.ai/guides/sheet/introduction', '_blank')
+    window.open('https://docs.univer.ai/guides/sheets', '_blank')
   })
 }
 
