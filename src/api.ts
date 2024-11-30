@@ -1,7 +1,6 @@
-// eslint
-import type { FUniver } from '@univerjs/facade'
-import '@univerjs/sheets/facade'
-import { ScrollToCellCommand } from '@univerjs/sheets-ui'
+import type { FUniver } from '@univerjs/presets'
+
+import { ScrollToCellCommand } from '@univerjs/presets'
 
 export function setupSetValue($toolbar: HTMLElement, univerAPI: FUniver) {
   const $button = document.createElement('a')
