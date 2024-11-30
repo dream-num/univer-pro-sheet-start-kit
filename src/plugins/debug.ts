@@ -1,5 +1,6 @@
+import type { Univer } from '@univerjs/presets'
+
 import { ActionReplayService, UniverActionRecorderPlugin } from '@univerjs/action-recorder'
-import type { Univer } from '@univerjs/core'
 
 export function setupUniverDebugPlugin(univer: Univer) {
   const url = new URL(window.location.href)
