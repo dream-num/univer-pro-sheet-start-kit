@@ -50,7 +50,7 @@ import workerURL from './worker.ts?worker&url'
 // import { setupUniverDebugPlugin } from './plugins/debug'
 
 export function setupUniver() {
-  const universerEndpoint = 'window.location.origin'
+  const universerEndpoint = window.location.origin
 
   const collaboration = true
 
