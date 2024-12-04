@@ -1,4 +1,4 @@
-service: :9090
+service: :3010
 
 universerEndpoint: http://universer:8000
 
