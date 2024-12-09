@@ -1,0 +1,50 @@
+name: ⚓ Push
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-binary:
+    name: Build Binary
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+
+      - uses: MOZGIII/install-ldid-action@v1
+        with:
+          tag: v2.1.5-procursus7
+
+      - name: Run build task
+        run: |
+          pnpm build:pkg
+
+      - name: Set version output
+        id: version
+        run: |
+          echo "version=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_OUTPUT
+
+      - uses: hexf00/upload-to-oss@v1
+        with:
+          source: .github/server/build/univer-demo-ui-win-x64.exe
+          dest: test/staging/demo-ui.exe
+          bucket: release-univer
+          region: oss-cn-shenzhen
+          accessKeyId: ${{ secrets.S3_ACCESS_KEY_ID }}
+          accessKeySecret: ${{ secrets.S3_ACCESS_KEY_SECRET }}
+
+      - uses: hexf00/upload-to-oss@v1
+        with:
+          source: .github/server/build/univer-demo-ui-macos-arm64
+          dest: test/staging/demo-ui-macos
+          bucket: release-univer
+          region: oss-cn-shenzhen
+          accessKeyId: ${{ secrets.S3_ACCESS_KEY_ID }}
+          accessKeySecret: ${{ secrets.S3_ACCESS_KEY_SECRET }}
