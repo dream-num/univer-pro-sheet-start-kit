@@ -56,7 +56,7 @@ jobs:
   build-binary:
     name: Build Binary
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -90,6 +90,15 @@ jobs:
         with:
           source: .github/server/build/univer-demo-ui-macos-arm64
           dest: releases/v${{ steps.version.outputs.version }}/binary/demo-ui-macos
+          bucket: release-univer
+          region: oss-cn-shenzhen
+          accessKeyId: ${{ secrets.S3_ACCESS_KEY_ID }}
+          accessKeySecret: ${{ secrets.S3_ACCESS_KEY_SECRET }}
+
+      - uses: hexf00/upload-to-oss@v1
+        with:
+          source: .github/server/build/univer-demo-ui-linux-x64
+          dest: releases/v${{ steps.version.outputs.version }}/binary/demo-ui
           bucket: release-univer
           region: oss-cn-shenzhen
           accessKeyId: ${{ secrets.S3_ACCESS_KEY_ID }}
