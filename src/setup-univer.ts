@@ -12,33 +12,32 @@ import '@univerjs/presets/lib/styles/preset-sheets-sort.css'
 import {
   createUniver,
   defaultTheme,
-  HTTPService,
   LocaleType,
   LogLevel,
   Tools,
   UniverInstanceType,
-  UniverSheetsAdvancedPreset,
-  UniverSheetsCollaborationPreset,
-  UniverSheetsConditionalFormattingPreset,
-  UniverSheetsCorePreset,
-  UniverSheetsDataValidationPreset,
-  UniverSheetsDrawingPreset,
-  UniverSheetsFilterPreset,
-  UniverSheetsFindReplacePreset,
-  UniverSheetsHyperLinkPreset,
-  UniverSheetsSortPreset,
-  UniverSheetsThreadCommentPreset,
 } from '@univerjs/presets'
+import { HTTPService, UniverSheetsAdvancedPreset } from '@univerjs/presets/preset-sheets-advanced'
 import sheetsAdvancedEnUs from '@univerjs/presets/preset-sheets-advanced/locales/en-US'
+import { UniverSheetsCollaborationPreset } from '@univerjs/presets/preset-sheets-collaboration'
 import sheetsCollaborationEnUs from '@univerjs/presets/preset-sheets-collaboration/locales/en-US'
+import { UniverSheetsConditionalFormattingPreset } from '@univerjs/presets/preset-sheets-conditional-formatting'
 import sheetsConditionalFormattingEnUs from '@univerjs/presets/preset-sheets-conditional-formatting/locales/en-US'
+import { UniverSheetsCorePreset } from '@univerjs/presets/preset-sheets-core'
 import sheetsCoreEnUs from '@univerjs/presets/preset-sheets-core/locales/en-US'
+import { UniverSheetsDataValidationPreset } from '@univerjs/presets/preset-sheets-data-validation'
 import sheetsDataValidationEnUs from '@univerjs/presets/preset-sheets-data-validation/locales/en-US'
+import { UniverSheetsDrawingPreset } from '@univerjs/presets/preset-sheets-drawing'
 import sheetsDrawingEnUs from '@univerjs/presets/preset-sheets-drawing/locales/en-US'
+import { UniverSheetsFilterPreset } from '@univerjs/presets/preset-sheets-filter'
 import sheetsFilterEnUs from '@univerjs/presets/preset-sheets-filter/locales/en-US'
+import { UniverSheetsFindReplacePreset } from '@univerjs/presets/preset-sheets-find-replace'
 import sheetsFindReplaceEnUs from '@univerjs/presets/preset-sheets-find-replace/locales/en-US'
+import { UniverSheetsHyperLinkPreset } from '@univerjs/presets/preset-sheets-hyper-link'
 import sheetsHyperLinkEnUs from '@univerjs/presets/preset-sheets-hyper-link/locales/en-US'
+import { UniverSheetsSortPreset } from '@univerjs/presets/preset-sheets-sort'
 import sheetsSortEnUs from '@univerjs/presets/preset-sheets-sort/locales/en-US'
+import { UniverSheetsThreadCommentPreset } from '@univerjs/presets/preset-sheets-thread-comment'
 import sheetsThreadCommentEnUs from '@univerjs/presets/preset-sheets-thread-comment/locales/en-US'
 import { UniverSheetsCrosshairHighlightPlugin } from '@univerjs/sheets-crosshair-highlight'
 import UniverSheetsCrosshairHighlightEnUs from '@univerjs/sheets-crosshair-highlight/locale/en-US'
