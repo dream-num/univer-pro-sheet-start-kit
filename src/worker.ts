@@ -1,15 +1,11 @@
-import { createUniver, LocaleType, Tools, UniverSheetsAdvancedWorkerPreset, UniverSheetsCoreWorkerPreset } from '@univerjs/presets'
-import sheetsAdvancedZhCN from '@univerjs/presets/preset-sheets-advanced/locales/zh-CN'
-import sheetsCoreZhCN from '@univerjs/presets/preset-sheets-core/locales/zh-CN'
+import { createUniver, LocaleType } from '@univerjs/presets'
+import { UniverSheetsAdvancedWorkerPreset } from '@univerjs/presets/preset-sheets-advanced/worker'
+import { UniverSheetsCoreWorkerPreset } from '@univerjs/presets/preset-sheets-core/worker'
 
 createUniver({
   locale: LocaleType.ZH_CN,
   locales: {
-    zhCN: Tools.deepMerge(
-      {},
-      sheetsCoreZhCN,
-      sheetsAdvancedZhCN,
-    ),
+    zhCN: {},
   },
   presets: [
     UniverSheetsCoreWorkerPreset(),

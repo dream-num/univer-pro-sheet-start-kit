@@ -1,6 +1,6 @@
 import type { FUniver } from '@univerjs/presets'
 
-import { ScrollToCellCommand } from '@univerjs/presets'
+import { ScrollToCellCommand } from '@univerjs/presets/preset-sheets-core'
 
 export function setupSetValue($toolbar: HTMLElement, univerAPI: FUniver) {
   const $button = document.createElement('a')
