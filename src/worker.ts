@@ -10,7 +10,7 @@ createUniver({
   presets: [
     UniverSheetsCoreWorkerPreset(),
     UniverSheetsAdvancedWorkerPreset({
-      // if you want to use the no-limit business feature, you can get 30-day trial license from https://univer.ai/pro/license
+      // if you want to use the no-limit business feature, you can get 30-day trial license from https://univer.ai/license
       // eslint-disable-next-line node/prefer-global/process
       license: process.env.UNIVER_CLIENT_LICENSE || 'your license.txt',
     }),

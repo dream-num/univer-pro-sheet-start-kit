@@ -1,3 +1,4 @@
+/* eslint-disable perfectionist/sort-imports */
 /* eslint-disable no-console */
 const fs = require('node:fs')
 const path = require('node:path')
@@ -39,7 +40,7 @@ function prepareReplacedFiles() {
     licenseContent = fs.readFileSync(licenseFilePath, 'utf8')
   }
   catch {
-    console.warn('\x1B[33m%s\x1B[0m', `Warning: Unable to read license.txt. Work on Free Mode, if you want to use the Business Mode, you can get a 30-day free trial license from https://univer.ai/pro/license`)
+    console.warn('\x1B[33m%s\x1B[0m', `Warning: Unable to read license.txt. Work on Free Mode, if you want to use the Business Mode, you can get a 30-day free trial license from https://univer.ai/license`)
   }
 
   const filesToReplace = ['main.js', 'worker.js']
