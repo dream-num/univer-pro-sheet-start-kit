@@ -102,6 +102,7 @@ export function setupUniver() {
       }),
       UniverSheetsCollaborationPreset({
         universerEndpoint,
+        univerContainerId: 'univer',
       }),
       UniverSheetsThreadCommentPreset({
         collaboration,
