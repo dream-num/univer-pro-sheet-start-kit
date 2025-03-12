@@ -12,12 +12,12 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@univerjs/action-recorder": "0.6.4",
-    "@univerjs/presets": "0.6.4",
-    "@univerjs/sheets-crosshair-highlight": "0.6.4",
-    "@univerjs/sheets-zen-editor": "0.6.4",
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "@univerjs/action-recorder": "0.6.5",
+    "@univerjs/presets": "0.6.5",
+    "@univerjs/sheets-crosshair-highlight": "0.6.5",
+    "@univerjs/sheets-zen-editor": "0.6.5",
+    "react": "19",
+    "react-dom": "19"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.23.1",
