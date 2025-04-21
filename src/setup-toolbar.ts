@@ -10,6 +10,7 @@ import {
   setupEditSwitch,
   setupGetSheetData,
   setupGetValue,
+  setupGetValues,
   setupGetWorkbookData,
   setupRedo,
   setupScrollToBottom,
@@ -28,7 +29,7 @@ export function setupToolbar(univerAPI: FUniver) {
   setupSetValue($toolbar, univerAPI)
   setupSetValues($toolbar, univerAPI)
   setupGetValue($toolbar, univerAPI)
-  setupGetValue($toolbar, univerAPI)
+  setupGetValues($toolbar, univerAPI)
 
   setupGetWorkbookData($toolbar, univerAPI)
   setupGetSheetData($toolbar, univerAPI)

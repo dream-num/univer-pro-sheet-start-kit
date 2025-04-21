@@ -60,7 +60,7 @@ export function setupGetValue($toolbar: HTMLElement, univerAPI: FUniver) {
   })
 }
 
-export function setupValues($toolbar: HTMLElement, univerAPI: FUniver) {
+export function setupGetValues($toolbar: HTMLElement, univerAPI: FUniver) {
   const $button = document.createElement('a')
   $button.textContent = 'get A1:B2 values'
   $toolbar.appendChild($button)
