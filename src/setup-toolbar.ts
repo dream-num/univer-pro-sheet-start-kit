@@ -3,6 +3,7 @@ import type { FUniver } from '@univerjs/presets'
 import {
   getTheSourceCode,
   goToTheGuide,
+  setupClearContent,
   setupClearStyles,
   setupCommandsListenerSwitch,
   setupCreateSheet,
@@ -19,7 +20,6 @@ import {
   setupSetValue,
   setupSetValues,
   setupUndo,
-  setupUniverGo,
   setupVersion,
 } from './api'
 
@@ -29,6 +29,7 @@ export function setupToolbar(univerAPI: FUniver) {
   setupSetValues($toolbar, univerAPI)
   setupGetValue($toolbar, univerAPI)
   setupGetValue($toolbar, univerAPI)
+
   setupGetWorkbookData($toolbar, univerAPI)
   setupGetSheetData($toolbar, univerAPI)
   setupCreateSheet($toolbar, univerAPI)
@@ -46,10 +47,10 @@ export function setupToolbar(univerAPI: FUniver) {
   setupRedo($toolbar, univerAPI)
 
   setupSetSelection($toolbar, univerAPI)
+  setupClearContent($toolbar, univerAPI)
   setupClearStyles($toolbar, univerAPI)
 
   goToTheGuide($toolbar, univerAPI)
   getTheSourceCode($toolbar, univerAPI)
   setupVersion($toolbar)
-  setupUniverGo($toolbar)
 }

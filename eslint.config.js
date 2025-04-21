@@ -14,7 +14,14 @@ export default antfu({
     'sort-imports': [
       'error',
       {
-        allowSeparatedGroups: false,
+        "groups": [
+          ["builtin", "external"],
+          "internal",
+          "sibling",
+          "parent",
+          "index"
+        ],
+        allowSeparatedGroups: true,
         //   ignoreCase: false,
         ignoreCase: true,
         ignoreDeclarationSort: true,
