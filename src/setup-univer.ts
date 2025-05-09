@@ -51,6 +51,14 @@ import { UniverSheetsSortPreset } from '@univerjs/presets/preset-sheets-sort'
 import sheetsSortEnUs from '@univerjs/presets/preset-sheets-sort/locales/en-US'
 import '@univerjs/presets/lib/styles/preset-sheets-sort.css'
 
+import { UniverSheetsNotePreset } from '@univerjs/presets/preset-sheets-note'
+import sheetsNoteEnUs from '@univerjs/presets/preset-sheets-note/locales/en-US'
+import '@univerjs/presets/lib/styles/preset-sheets-note.css'
+
+import { UniverSheetsTablePreset } from '@univerjs/presets/preset-sheets-table'
+import sheetsTableEnUs from '@univerjs/presets/preset-sheets-table/locales/en-US'
+import '@univerjs/presets/lib/styles/preset-sheets-table.css'
+
 import { UniverSheetsZenEditorPlugin } from '@univerjs/sheets-zen-editor'
 import sheetsZenEditorEnUs from '@univerjs/sheets-zen-editor/locale/en-US'
 import '@univerjs/sheets-zen-editor/lib/index.css'
@@ -84,6 +92,8 @@ export function setupUniver() {
         sheetsFindReplaceEnUs,
         sheetsHyperLinkEnUs,
         sheetsSortEnUs,
+        sheetsNoteEnUs,
+        sheetsTableEnUs,
         sheetsZenEditorEnUs,
         sheetsCrosshairHighlightEnUs,
       ),
@@ -123,6 +133,8 @@ export function setupUniver() {
       UniverSheetsFilterPreset(),
       UniverSheetsFindReplacePreset(),
       UniverSheetsSortPreset(),
+      UniverSheetsNotePreset(),
+      UniverSheetsTablePreset(),
       UniverSheetsHyperLinkPreset(),
     ],
     plugins: [
