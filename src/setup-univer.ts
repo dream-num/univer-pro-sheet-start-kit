@@ -105,7 +105,6 @@ export function setupUniver() {
       UniverSheetsCorePreset({
         container: 'univer',
         header: true,
-        footer: true,
         workerURL: new Worker(new URL(workerURL, import.meta.url), {
           type: 'module',
         }),
