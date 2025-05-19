@@ -21,6 +21,7 @@ import {
   setupSetValue,
   setupSetValues,
   setupUndo,
+  setupUploadFile,
   setupVersion,
 } from './api'
 
@@ -53,5 +54,7 @@ export function setupToolbar(univerAPI: FUniver) {
 
   goToTheGuide($toolbar, univerAPI)
   getTheSourceCode($toolbar, univerAPI)
+
+  setupUploadFile($toolbar, univerAPI)
   setupVersion($toolbar)
 }

@@ -366,3 +366,26 @@ export function setupVersion($toolbar: HTMLElement) {
   $button.target = '_blank'
   $toolbar.appendChild($button)
 }
+
+export function setupUploadFile($toolbar: HTMLElement, univerAPI: FUniver) {
+  const $button = document.createElement('a')
+  $button.textContent = 'importXLSXToSnapshotAsync'
+  $toolbar.appendChild($button)
+
+  $button.addEventListener('click', () => {
+    const input = document.createElement('input')
+    input.type = 'file'
+    input.accept = '.xlsx'
+    input.addEventListener('change', async (event) => {
+      const file = (event.target as HTMLInputElement).files?.[0]
+      if (!file) return
+
+      const snapshot = await univerAPI.importXLSXToSnapshotAsync(file)
+
+      if (!snapshot) return
+
+      univerAPI.createWorkbook(snapshot)
+    })
+    input.click()
+  })
+}

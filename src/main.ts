@@ -9,7 +9,7 @@ function main() {
   window.univerAPI = univerAPI
 
   univerAPI.addEvent(univerAPI.Event.LifeCycleChanged, ({ stage }) => {
-    if (stage === univerAPI.Enum.LifecycleStages.Steady) {
+    if (stage === univerAPI.Enum.LifecycleStages.Rendered) {
       setupToolbar(univerAPI)
     }
   })
