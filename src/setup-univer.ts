@@ -151,11 +151,8 @@ export function setupUniver() {
     priority: 0,
     interceptor: (request, next) => {
       // If you need to add headers to the request, you can do so here
-      // // @ts-expect-error
-      // const headers: Map<string, string[]> = request.headers._headers
-      // // Add your headers here, for example:
-      // headers.set('Authorization', ['Bearer 123'])
-
+      // Add your headers here, for example:
+      // request.headers.set('Authorization', 'Bearer 123')
       return next(request)
     },
   })
