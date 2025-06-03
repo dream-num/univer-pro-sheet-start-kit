@@ -166,8 +166,7 @@ export function setupUniver() {
   const unit = url.searchParams.get('unit')
   if (unit) {
     // waiting for the unit to be loaded
-  }
-  else {
+  } else {
     fetch(`${universerEndpoint}/universer-api/snapshot/2/unit/-/create`, {
       method: 'POST',
       headers: {
@@ -187,7 +186,9 @@ export function setupUniver() {
       if (!data.unitID)
         throw new Error('create unit failed')
 
-      univerAPI.loadServerUnit(data.unitID, univerAPI.Enum.UniverInstanceType.UNIVER_SHEET)
+      url.searchParams.set('unit', data.unitID);
+      url.searchParams.set('type', String(UniverInstanceType.UNIVER_SHEET));
+      window.location.href = url.toString();
     }).catch((error) => {
       console.error(error)
     })
