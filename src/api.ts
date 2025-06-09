@@ -1,4 +1,5 @@
-import type { FUniver, ICellData } from '@univerjs/presets'
+import type { FUniver, ICellData } from '@univerjs/presets';
+import { downloadFile } from '@univerjs/presets/preset-sheets-advanced';
 
 export function setupSetValue($toolbar: HTMLElement, univerAPI: FUniver) {
   const $button = document.createElement('a')
@@ -367,7 +368,44 @@ export function setupVersion($toolbar: HTMLElement) {
   $toolbar.appendChild($button)
 }
 
-export function setupUploadFile($toolbar: HTMLElement, univerAPI: FUniver) {
+export function setupUploadFileToUnitId($toolbar: HTMLElement, univerAPI: FUniver) {
+  const $button = document.createElement('a')
+  $button.textContent = 'importXLSXToUnitIdAsync'
+  $toolbar.appendChild($button)
+
+  $button.addEventListener('click', () => {
+    const input = document.createElement('input')
+    input.type = 'file'
+    input.accept = '.xlsx'
+    input.addEventListener('change', async (event) => {
+      const file = (event.target as HTMLInputElement).files?.[0]
+      if (!file) return
+
+      const unitId = await univerAPI.importXLSXToUnitIdAsync(file)
+
+      if (!unitId) return
+
+      univerAPI.loadServerUnit(unitId, 2)
+    })
+    input.click()
+  })
+}
+
+export function setupDownloadFileByUnitId($toolbar: HTMLElement, univerAPI: FUniver) {
+  const $button = document.createElement('a')
+  $button.textContent = 'exportXLSXByUnitIdAsync'
+  $toolbar.appendChild($button)
+
+  $button.addEventListener('click', async () => {
+    const fWorkbook = univerAPI.getActiveWorkbook()!;
+    const unitId = fWorkbook.getId();
+    const file = await univerAPI.exportXLSXByUnitIdAsync(unitId);
+    if (!file) return;
+    downloadFile(file, 'univer', 'xlsx');
+  })
+}
+
+export function setupUploadFileToSnapshot($toolbar: HTMLElement, univerAPI: FUniver) {
   const $button = document.createElement('a')
   $button.textContent = 'importXLSXToSnapshotAsync'
   $toolbar.appendChild($button)
@@ -387,5 +425,19 @@ export function setupUploadFile($toolbar: HTMLElement, univerAPI: FUniver) {
       univerAPI.createWorkbook(snapshot)
     })
     input.click()
+  })
+}
+
+export function setupDownloadFileBySnapshot($toolbar: HTMLElement, univerAPI: FUniver) {
+  const $button = document.createElement('a')
+  $button.textContent = 'exportXLSXBySnapshotAsync'
+  $toolbar.appendChild($button)
+
+  $button.addEventListener('click', async () => {
+    const fWorkbook = univerAPI.getActiveWorkbook()!;
+    const snapshot = fWorkbook.save();
+    const file = await univerAPI.exportXLSXBySnapshotAsync(snapshot);
+    if (!file) return;
+    downloadFile(file, 'univer', 'xlsx');
   })
 }
