@@ -120,7 +120,7 @@ export function setupUniver() {
         // eslint-disable-next-line node/prefer-global/process
         license: process.env.UNIVER_CLIENT_LICENSE || 'your license.txt',
         exchangeClientOptions: {
-          minSheetRowCount: 123,
+          minSheetRowCount: 100,
           minSheetColumnCount: 12,
         }
       }),
