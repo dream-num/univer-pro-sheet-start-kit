@@ -122,6 +122,7 @@ export function setupUniver() {
         exchangeClientOptions: {
           minSheetRowCount: 100,
           minSheetColumnCount: 12,
+          // enableServerSideComputing: true,
         }
       }),
       UniverSheetsCollaborationPreset({
