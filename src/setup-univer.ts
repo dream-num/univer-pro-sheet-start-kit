@@ -3,7 +3,7 @@ import {
   defaultTheme,
   LocaleType,
   LogLevel,
-  merge,
+  mergeLocales,
   UniverInstanceType,
 } from '@univerjs/presets'
 
@@ -79,8 +79,7 @@ export function setupUniver() {
   const { univerAPI, univer } = createUniver({
     locale: LocaleType.EN_US,
     locales: {
-      [LocaleType.EN_US]: merge(
-        {},
+      [LocaleType.EN_US]: mergeLocales(
         sheetsCoreEnUs,
         sheetsAdvancedEnUs,
         sheetsCollaborationEnUs,
