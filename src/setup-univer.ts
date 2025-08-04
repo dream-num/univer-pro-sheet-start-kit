@@ -7,7 +7,7 @@ import {
   UniverInstanceType,
 } from '@univerjs/presets'
 
-import { HTTPService, UniverSheetsCorePreset } from '@univerjs/presets/preset-sheets-core'
+import { CalculationMode, HTTPService, UniverSheetsCorePreset } from '@univerjs/presets/preset-sheets-core'
 import sheetsCoreEnUs from '@univerjs/presets/preset-sheets-core/locales/en-US'
 import '@univerjs/presets/lib/styles/preset-sheets-core.css'
 
@@ -108,6 +108,9 @@ export function setupUniver() {
         workerURL: new Worker(new URL(workerURL, import.meta.url), {
           type: 'module',
         }),
+        formula: {
+          initialFormulaComputing: CalculationMode.FORCED
+        }
       }),
       UniverSheetsDrawingPreset({
         collaboration,
