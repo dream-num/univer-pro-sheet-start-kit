@@ -136,7 +136,9 @@ export function setupUniver() {
       }),
       UniverSheetsConditionalFormattingPreset(),
       UniverSheetsDataValidationPreset(),
-      UniverSheetsFilterPreset(),
+      UniverSheetsFilterPreset({
+        enableSyncSwitch: true,
+      }),
       UniverSheetsFindReplacePreset(),
       UniverSheetsSortPreset(),
       UniverSheetsNotePreset(),
