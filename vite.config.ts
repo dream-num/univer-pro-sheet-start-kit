@@ -15,6 +15,7 @@ export default ({ mode }) => {
           ws: true,
         },
       },
+      allowedHosts: ['local.univer.plus'],
     },
     define: {
       'process.env.UNIVER_CLIENT_LICENSE': `"${env.UNIVER_CLIENT_LICENSE}"` || '"%%UNIVER_CLIENT_LICENSE_PLACEHOLDER%%"',
