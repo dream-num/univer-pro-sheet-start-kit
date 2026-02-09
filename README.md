@@ -14,7 +14,9 @@ You can find more information about Univer Server [here](https://docs.univer.ai/
 
 First, you need to deploy Univer Server with Docker, you can follow the instructions [here](https://docs.univer.ai/guides/sheets/pro-features/server/overview).
 
-Then, you can use the following command to start the application:
+Then, you need to copy the `.env.example` file to `.env` and set the `UNIVER_ENDPOINT` variable to your Univer Server URL.
+
+Now you can use the following command to start the application:
 
 ```bash
 pnpm install
