@@ -1,22 +1,23 @@
 {
   "name": "univer-demo-ui",
   "private": true,
+  "packageManager": "pnpm@10.32.1",
   "description": "",
   "author": "DreamNum Inc. <developer@univer.ai>",
   "bin": "./server.js",
   "engines": {
     "node": ">=18.17.0",
-    "pnpm": ">=8.6.0"
+    "pnpm": ">=10"
   },
   "scripts": {
     "start": "node ./server.js",
     "build:pkg": "cp -r ../../dist ./site-static && pnpm i && pnpm dlx pkg . --no-bytecode --public-packages \"*\" --public"
   },
   "dependencies": {
-    "cors": "^2.8.5",
+    "cors": "^2.8.6",
     "express": "^4.21.0",
     "http-proxy": "^1.18.1",
-    "yaml": "^2.6.0"
+    "yaml": "^2.8.2"
   },
   "pkg": {
     "scripts": "server.js",
