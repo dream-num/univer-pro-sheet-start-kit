@@ -109,10 +109,18 @@ export function setupUniver() {
         }),
         formula: {
           initialFormulaComputing: CalculationMode.FORCED
-        }
+        },
+        // footer: {
+        //   addSheetButtonConfig: {
+        //     // show: false,
+        //     defaultRowCount: 10,
+        //     defaultColumnCount: 5,
+        //   },
+        // },
       }),
       UniverSheetsDrawingPreset({
         collaboration,
+        // allowImageSize: 0.01 * 1024 * 1024, // 10KB
       }),
       UniverSheetsAdvancedPreset({
         useWorker: true,
