@@ -1,5 +1,5 @@
-import type { FUniver, ICellData } from '@univerjs/presets';
-import { downloadFile } from '@univerjs/presets/preset-sheets-advanced';
+import type { FUniver, ICellData } from '@univerjs/presets'
+import { downloadFile } from '@univerjs/preset-sheets-advanced'
 
 export function setupSetValue($toolbar: HTMLElement, univerAPI: FUniver) {
   const $button = document.createElement('a')
@@ -28,7 +28,7 @@ export function setupSetValues($toolbar: HTMLElement, univerAPI: FUniver) {
   $button.addEventListener('click', () => {
     const values = [
       ['Hello', { v: 'Univer!', s: { bg: { rgb: '#ff0000' } } }],
-      ['Hello', 'Univer!']
+      ['Hello', 'Univer!'],
     ] as ICellData[][]
 
     const fWorkbook = univerAPI.getActiveWorkbook()!
@@ -91,7 +91,7 @@ export function setupGetWorkbookData($toolbar: HTMLElement, univerAPI: FUniver) 
     /**
      * @see https://reference.univer.ai/zh-CN/classes/FWorkbook#save
      */
-    const snapshot = fWorkbook.save();
+    const snapshot = fWorkbook.save()
     console.log(snapshot)
     alert(JSON.stringify(snapshot, null, 2))
   })
@@ -104,7 +104,7 @@ export function setupGetSheetData($toolbar: HTMLElement, univerAPI: FUniver) {
 
   $button.addEventListener('click', () => {
     const fWorkbook = univerAPI.getActiveWorkbook()!
-    
+
     let fWorksheet = fWorkbook.getSheetByName('Sheet1') ?? fWorkbook.getSheetBySheetId('Sheet1')
     if (!fWorksheet) {
       fWorksheet = fWorkbook.getSheets()[0]
@@ -130,7 +130,7 @@ export function setupCreateSheet($toolbar: HTMLElement, univerAPI: FUniver) {
     /**
      * @see https://reference.univer.ai/zh-CN/classes/FWorkbook#create
      */
-    fWorkbook.create('Sheet2', 10, 10);
+    fWorkbook.create('Sheet2', 10, 10)
   })
 }
 
@@ -146,10 +146,10 @@ export function setupScrollToCell($toolbar: HTMLElement, univerAPI: FUniver) {
     /**
      * @see https://reference.univer.ai/zh-CN/classes/FWorksheet#scrolltocell
      */
-    const fRange = fWorksheet.getRange('B100');
-    const row = fRange.getRow();
-    const column = fRange.getColumn();
-    fWorksheet.scrollToCell(row, column);
+    const fRange = fWorksheet.getRange('B100')
+    const row = fRange.getRow()
+    const column = fRange.getColumn()
+    fWorksheet.scrollToCell(row, column)
   })
 }
 
@@ -165,7 +165,7 @@ export function setupScrollToTop($toolbar: HTMLElement, univerAPI: FUniver) {
     /**
      * @see https://reference.univer.ai/zh-CN/classes/FWorksheet#scrolltocell
      */
-    fWorksheet.scrollToCell(0, 0);
+    fWorksheet.scrollToCell(0, 0)
   })
 }
 
@@ -181,7 +181,7 @@ export function setupScrollToBottom($toolbar: HTMLElement, univerAPI: FUniver) {
     /**
      * @see https://reference.univer.ai/zh-CN/classes/FWorksheet#scrolltocell
      */
-    fWorksheet.scrollToCell(fWorksheet.getMaxRows() - 1, 0);
+    fWorksheet.scrollToCell(fWorksheet.getMaxRows() - 1, 0)
   })
 }
 
@@ -210,8 +210,7 @@ export function setupCommandsListenerSwitch($toolbar: HTMLElement, univerAPI: FU
   let listener: any = null
 
   $button.addEventListener('click', () => {
-    if (!univerAPI)
-      throw new Error('univerAPI is not defined')
+    if (!univerAPI) throw new Error('univerAPI is not defined')
 
     if (listener) {
       listener.dispose()
@@ -224,13 +223,14 @@ export function setupCommandsListenerSwitch($toolbar: HTMLElement, univerAPI: FU
      * @see https://reference.univer.ai/zh-CN/classes/FEventName#commandexecuted
      */
     listener = univerAPI.addEvent(univerAPI.Event.CommandExecuted, (event) => {
-      const { params, id, type, options } = event;
-      console.log('command executed', { params, id, type, options });
+      const { params, id, type, options } = event
+      console.log('command executed', { params, id, type, options })
     })
     el.innerHTML = 'stop listening commands'
-    
-    // eslint-disable-next-line no-alert
-    alert('Press "Ctrl + Shift + I" to open the console and do some actions in the Univer Sheets, you will see the commands in the console.')
+
+    alert(
+      'Press "Ctrl + Shift + I" to open the console and do some actions in the Univer Sheets, you will see the commands in the console.',
+    )
   })
 }
 
@@ -273,7 +273,7 @@ export function setupRedo($toolbar: HTMLElement, univerAPI: FUniver) {
   $toolbar.appendChild($button)
 
   $button.addEventListener('click', async () => {
-    /** 
+    /**
      * @see https://reference.univer.ai/zh-CN/classes/FUniver#redo
      */
     await univerAPI.redo()
@@ -310,7 +310,7 @@ export function setupClearContent($toolbar: HTMLElement, univerAPI: FUniver) {
     /**
      * @see https://reference.univer.ai/zh-CN/classes/FRange#clearcontent
      */
-    fRange.clearContent();
+    fRange.clearContent()
   })
 }
 
@@ -327,7 +327,7 @@ export function setupClearStyles($toolbar: HTMLElement, univerAPI: FUniver) {
     /**
      * @see https://reference.univer.ai/zh-CN/classes/FRange#clearformat
      */
-    fRange.clearFormat();
+    fRange.clearFormat()
   })
 }
 
@@ -361,7 +361,7 @@ export function goToTheGuide($toolbar: HTMLElement, _univerAPI: FUniver) {
 
 export function setupVersion($toolbar: HTMLElement) {
   const $button = document.createElement('a')
-  // eslint-disable-next-line node/prefer-global/process
+  // oxlint-disable-next-line node/prefer-global/process
   $button.textContent = `version: ${process.env.UNIVER_VERSION}`
   $button.href = 'https://github.com/dream-num/univer'
   $button.target = '_blank'
@@ -397,11 +397,11 @@ export function setupDownloadFileByUnitId($toolbar: HTMLElement, univerAPI: FUni
   $toolbar.appendChild($button)
 
   $button.addEventListener('click', async () => {
-    const fWorkbook = univerAPI.getActiveWorkbook()!;
-    const unitId = fWorkbook.getId();
-    const file = await univerAPI.exportXLSXByUnitIdAsync(unitId);
-    if (!file) return;
-    downloadFile(file, 'univer', 'xlsx');
+    const fWorkbook = univerAPI.getActiveWorkbook()!
+    const unitId = fWorkbook.getId()
+    const file = await univerAPI.exportXLSXByUnitIdAsync(unitId)
+    if (!file) return
+    downloadFile(file, 'univer', 'xlsx')
   })
 }
 
@@ -434,10 +434,10 @@ export function setupDownloadFileBySnapshot($toolbar: HTMLElement, univerAPI: FU
   $toolbar.appendChild($button)
 
   $button.addEventListener('click', async () => {
-    const fWorkbook = univerAPI.getActiveWorkbook()!;
-    const snapshot = fWorkbook.save();
-    const file = await univerAPI.exportXLSXBySnapshotAsync(snapshot);
-    if (!file) return;
-    downloadFile(file, 'univer', 'xlsx');
+    const fWorkbook = univerAPI.getActiveWorkbook()!
+    const snapshot = fWorkbook.save()
+    const file = await univerAPI.exportXLSXBySnapshotAsync(snapshot)
+    if (!file) return
+    downloadFile(file, 'univer', 'xlsx')
   })
 }

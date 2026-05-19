@@ -1,39 +1,57 @@
 {
   "name": "univer-pro-sheet-start-kit",
-  "type": "module",
-  "packageManager": "pnpm@10.32.1",
   "version": "0.0.0",
   "private": true,
   "description": "A starter kit for Univer Server",
+  "type": "module",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
     "build:pkg": "pnpm build && cd .github/server && pnpm build:pkg",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint": "oxlint .",
+    "lint:fix": "oxlint . --fix",
+    "fmt": "oxfmt --write .",
+    "fmt:check": "oxfmt --check ."
   },
   "dependencies": {
     "@univerjs/action-recorder": "0.23.0",
+    "@univerjs/preset-sheets-advanced": "0.23.0",
+    "@univerjs/preset-sheets-collaboration": "0.23.0",
+    "@univerjs/preset-sheets-conditional-formatting": "0.23.0",
+    "@univerjs/preset-sheets-core": "0.23.0",
+    "@univerjs/preset-sheets-data-validation": "0.23.0",
+    "@univerjs/preset-sheets-drawing": "0.23.0",
+    "@univerjs/preset-sheets-filter": "0.23.0",
+    "@univerjs/preset-sheets-find-replace": "0.23.0",
+    "@univerjs/preset-sheets-hyper-link": "0.23.0",
+    "@univerjs/preset-sheets-note": "0.23.0",
+    "@univerjs/preset-sheets-sort": "0.23.0",
+    "@univerjs/preset-sheets-table": "0.23.0",
+    "@univerjs/preset-sheets-thread-comment": "0.23.0",
     "@univerjs/presets": "0.23.0",
     "@univerjs/sheets-crosshair-highlight": "0.23.0",
     "@univerjs/sheets-zen-editor": "0.23.0",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^6.1.0",
-    "@types/node": "^25.5.0",
-    "eslint": "^9.38.0",
-    "eslint-plugin-format": "^1.0.2",
-    "lint-staged": "^16.4.0",
+    "@types/node": "25.9.0",
+    "lint-staged": "^17.0.5",
+    "oxfmt": "^0.50.0",
+    "oxlint": "^1.65.0",
     "simple-git-hooks": "^2.13.1",
-    "typescript": "^5.9.3",
-    "vite": "^8.0.0"
+    "typescript": "^6.0.3",
+    "vite": "^8.0.13"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
   },
   "lint-staged": {
-    "*": "eslint --fix"
-  }
+    "*.{js,mjs,cjs,ts,mts,cts,tsx,jsx}": [
+      "oxlint --fix",
+      "oxfmt --write"
+    ],
+    "*.{css,html,md,json,jsonc,yaml,yml}": "oxfmt --write"
+  },
+  "packageManager": "pnpm@11.1.3"
 }

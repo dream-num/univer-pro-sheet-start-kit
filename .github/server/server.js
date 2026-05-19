@@ -1,5 +1,4 @@
-/* eslint-disable perfectionist/sort-imports */
-/* eslint-disable no-console */
+/* oxlint-disable no-console */
 const fs = require('node:fs')
 const path = require('node:path')
 const { resolve, join } = require('node:path')
@@ -13,17 +12,18 @@ const YAML = require('yaml')
 const app = express()
 const proxy = httpProxy.createProxyServer({})
 
-app.use(cors({
-  origin: '*',
-}))
+app.use(
+  cors({
+    origin: '*',
+  }),
+)
 
 const config = (() => {
   const configPath = process.env.UNIVER_CONFIG_DIR || resolve(process.cwd(), 'configs')
   if (fs.existsSync(resolve(configPath, 'demo-ui.yaml'))) {
     const config = YAML.parse(fs.readFileSync(resolve(configPath, 'demo-ui.yaml'), 'utf8'))
     return config
-  }
-  else {
+  } else {
     console.info('\x1B[36m%s\x1B[0m', `Info: No demo-ui.yaml found in the ${configPath}, using default settings`)
     return {}
   }
@@ -35,12 +35,17 @@ const replacedFiles = new Map()
 function prepareReplacedFiles() {
   const staticDir = path.join(__dirname, './site-static')
   let licenseContent = ''
-  const licenseFilePath = config?.license || process.env.LICENSE_PATH || (process.pkg ? resolve(process.cwd(), 'configs/license.txt') : '/data/configs/license.txt')
+  const licenseFilePath =
+    config?.license ||
+    process.env.LICENSE_PATH ||
+    (process.pkg ? resolve(process.cwd(), 'configs/license.txt') : '/data/configs/license.txt')
   try {
     licenseContent = fs.readFileSync(licenseFilePath, 'utf8')
-  }
-  catch {
-    console.warn('\x1B[33m%s\x1B[0m', `Warning: Unable to read license.txt. Work on Free Mode, if you want to use the Business Mode, you can get a 30-day free trial license from https://univer.ai/license`)
+  } catch {
+    console.warn(
+      '\x1B[33m%s\x1B[0m',
+      `Warning: Unable to read license.txt. Work on Free Mode, if you want to use the Business Mode, you can get a 30-day free trial license from https://univer.ai/license`,
+    )
   }
 
   const filesToReplace = ['main.js', 'worker.js']
@@ -96,20 +101,30 @@ if (config?.service) {
   if (hostAndPort.length === 2) {
     host = hostAndPort[0]
     port = hostAndPort[1]
-  }
-  else {
+  } else {
     port = config.service
   }
-}
-else if (process.env.CLIENT_PORT) {
+} else if (process.env.CLIENT_PORT) {
   port = process.env.CLIENT_PORT
 }
 
 const server = app.listen(port, host, () => {
-  console.log('\x1B[36m%s\x1B[0m', `Univer Demo UI running on http://${server.address().address}:${server.address().port}`)
-  console.log('\x1B[36m%s\x1B[0m', 'Get the Demo UI Source Code: https://github.com/dream-num/univer-pro-sheet-start-kit')
-  console.log('\x1B[32m%s\x1B[0m', 'If you want to integrate the Univer frontend SDK, please read: https://docs.univer.ai/guides/sheets')
-  console.log('\x1B[35m%s\x1B[0m', 'For more information about the Univer server, please read: https://docs.univer.ai/guides/sheets/pro-features/server/overview)')
+  console.log(
+    '\x1B[36m%s\x1B[0m',
+    `Univer Demo UI running on http://${server.address().address}:${server.address().port}`,
+  )
+  console.log(
+    '\x1B[36m%s\x1B[0m',
+    'Get the Demo UI Source Code: https://github.com/dream-num/univer-pro-sheet-start-kit',
+  )
+  console.log(
+    '\x1B[32m%s\x1B[0m',
+    'If you want to integrate the Univer frontend SDK, please read: https://docs.univer.ai/guides/sheets',
+  )
+  console.log(
+    '\x1B[35m%s\x1B[0m',
+    'For more information about the Univer server, please read: https://docs.univer.ai/guides/sheets/pro-features/server/overview)',
+  )
 })
 
 server.on('upgrade', (req, socket, head) => {

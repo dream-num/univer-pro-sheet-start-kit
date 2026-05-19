@@ -1,63 +1,56 @@
-import {
-  createUniver,
-  defaultTheme,
-  LocaleType,
-  LogLevel,
-  mergeLocales,
-  UniverInstanceType,
-} from '@univerjs/presets'
+import { createUniver, defaultTheme, LocaleType, LogLevel, mergeLocales, UniverInstanceType } from '@univerjs/presets'
 
-import { CalculationMode, HTTPService, UniverSheetsCorePreset } from '@univerjs/presets/preset-sheets-core'
-import sheetsCoreEnUs from '@univerjs/presets/preset-sheets-core/locales/en-US'
-import '@univerjs/presets/lib/styles/preset-sheets-core.css'
+import { CalculationMode, HTTPService, UniverSheetsCorePreset } from '@univerjs/preset-sheets-core'
+import sheetsCoreEnUs from '@univerjs/preset-sheets-core/locales/en-US'
+import '@univerjs/preset-sheets-core/lib/index.css'
 
-import { UniverSheetsAdvancedPreset } from '@univerjs/presets/preset-sheets-advanced'
-import sheetsAdvancedEnUs from '@univerjs/presets/preset-sheets-advanced/locales/en-US'
-import '@univerjs/presets/lib/styles/preset-sheets-advanced.css'
+import { UniverSheetsAdvancedPreset } from '@univerjs/preset-sheets-advanced'
+import sheetsAdvancedEnUs from '@univerjs/preset-sheets-advanced/locales/en-US'
+import '@univerjs/preset-sheets-advanced/lib/index.css'
 
-import { UniverSheetsCollaborationPreset } from '@univerjs/presets/preset-sheets-collaboration'
-import sheetsCollaborationEnUs from '@univerjs/presets/preset-sheets-collaboration/locales/en-US'
-import '@univerjs/presets/lib/styles/preset-sheets-collaboration.css'
+import { UniverSheetsCollaborationPreset } from '@univerjs/preset-sheets-collaboration'
+import sheetsCollaborationEnUs from '@univerjs/preset-sheets-collaboration/locales/en-US'
+import '@univerjs/preset-sheets-collaboration/lib/index.css'
 
-import { UniverSheetsThreadCommentPreset } from '@univerjs/presets/preset-sheets-thread-comment'
-import sheetsThreadCommentEnUs from '@univerjs/presets/preset-sheets-thread-comment/locales/en-US'
-import '@univerjs/presets/lib/styles/preset-sheets-thread-comment.css'
+import { UniverSheetsThreadCommentPreset } from '@univerjs/preset-sheets-thread-comment'
+import sheetsThreadCommentEnUs from '@univerjs/preset-sheets-thread-comment/locales/en-US'
+import '@univerjs/preset-sheets-thread-comment/lib/index.css'
 
-import { UniverSheetsConditionalFormattingPreset } from '@univerjs/presets/preset-sheets-conditional-formatting'
-import sheetsConditionalFormattingEnUs from '@univerjs/presets/preset-sheets-conditional-formatting/locales/en-US'
-import '@univerjs/presets/lib/styles/preset-sheets-conditional-formatting.css'
+import { UniverSheetsConditionalFormattingPreset } from '@univerjs/preset-sheets-conditional-formatting'
+import sheetsConditionalFormattingEnUs from '@univerjs/preset-sheets-conditional-formatting/locales/en-US'
+import '@univerjs/preset-sheets-conditional-formatting/lib/index.css'
 
-import { UniverSheetsDataValidationPreset } from '@univerjs/presets/preset-sheets-data-validation'
-import sheetsDataValidationEnUs from '@univerjs/presets/preset-sheets-data-validation/locales/en-US'
-import '@univerjs/presets/lib/styles/preset-sheets-data-validation.css'
+import { UniverSheetsDataValidationPreset } from '@univerjs/preset-sheets-data-validation'
+import sheetsDataValidationEnUs from '@univerjs/preset-sheets-data-validation/locales/en-US'
+import '@univerjs/preset-sheets-data-validation/lib/index.css'
 
-import { UniverSheetsDrawingPreset } from '@univerjs/presets/preset-sheets-drawing'
-import sheetsDrawingEnUs from '@univerjs/presets/preset-sheets-drawing/locales/en-US'
-import '@univerjs/presets/lib/styles/preset-sheets-drawing.css'
+import { UniverSheetsDrawingPreset } from '@univerjs/preset-sheets-drawing'
+import sheetsDrawingEnUs from '@univerjs/preset-sheets-drawing/locales/en-US'
+import '@univerjs/preset-sheets-drawing/lib/index.css'
 
-import { UniverSheetsFilterPreset } from '@univerjs/presets/preset-sheets-filter'
-import sheetsFilterEnUs from '@univerjs/presets/preset-sheets-filter/locales/en-US'
-import '@univerjs/presets/lib/styles/preset-sheets-filter.css'
+import { UniverSheetsFilterPreset } from '@univerjs/preset-sheets-filter'
+import sheetsFilterEnUs from '@univerjs/preset-sheets-filter/locales/en-US'
+import '@univerjs/preset-sheets-filter/lib/index.css'
 
-import { UniverSheetsFindReplacePreset } from '@univerjs/presets/preset-sheets-find-replace'
-import sheetsFindReplaceEnUs from '@univerjs/presets/preset-sheets-find-replace/locales/en-US'
-import '@univerjs/presets/lib/styles/preset-sheets-find-replace.css'
+import { UniverSheetsFindReplacePreset } from '@univerjs/preset-sheets-find-replace'
+import sheetsFindReplaceEnUs from '@univerjs/preset-sheets-find-replace/locales/en-US'
+import '@univerjs/preset-sheets-find-replace/lib/index.css'
 
-import { UniverSheetsHyperLinkPreset } from '@univerjs/presets/preset-sheets-hyper-link'
-import sheetsHyperLinkEnUs from '@univerjs/presets/preset-sheets-hyper-link/locales/en-US'
-import '@univerjs/presets/lib/styles/preset-sheets-hyper-link.css'
+import { UniverSheetsHyperLinkPreset } from '@univerjs/preset-sheets-hyper-link'
+import sheetsHyperLinkEnUs from '@univerjs/preset-sheets-hyper-link/locales/en-US'
+import '@univerjs/preset-sheets-hyper-link/lib/index.css'
 
-import { UniverSheetsSortPreset } from '@univerjs/presets/preset-sheets-sort'
-import sheetsSortEnUs from '@univerjs/presets/preset-sheets-sort/locales/en-US'
-import '@univerjs/presets/lib/styles/preset-sheets-sort.css'
+import { UniverSheetsSortPreset } from '@univerjs/preset-sheets-sort'
+import sheetsSortEnUs from '@univerjs/preset-sheets-sort/locales/en-US'
+import '@univerjs/preset-sheets-sort/lib/index.css'
 
-import { UniverSheetsNotePreset } from '@univerjs/presets/preset-sheets-note'
-import sheetsNoteEnUs from '@univerjs/presets/preset-sheets-note/locales/en-US'
-import '@univerjs/presets/lib/styles/preset-sheets-note.css'
+import { UniverSheetsNotePreset } from '@univerjs/preset-sheets-note'
+import sheetsNoteEnUs from '@univerjs/preset-sheets-note/locales/en-US'
+import '@univerjs/preset-sheets-note/lib/index.css'
 
-import { UniverSheetsTablePreset } from '@univerjs/presets/preset-sheets-table'
-import sheetsTableEnUs from '@univerjs/presets/preset-sheets-table/locales/en-US'
-import '@univerjs/presets/lib/styles/preset-sheets-table.css'
+import { UniverSheetsTablePreset } from '@univerjs/preset-sheets-table'
+import sheetsTableEnUs from '@univerjs/preset-sheets-table/locales/en-US'
+import '@univerjs/preset-sheets-table/lib/index.css'
 
 import { UniverSheetsZenEditorPlugin } from '@univerjs/sheets-zen-editor'
 import sheetsZenEditorEnUs from '@univerjs/sheets-zen-editor/locale/en-US'
@@ -67,6 +60,7 @@ import { UniverSheetsCrosshairHighlightPlugin } from '@univerjs/sheets-crosshair
 import sheetsCrosshairHighlightEnUs from '@univerjs/sheets-crosshair-highlight/locale/en-US'
 import '@univerjs/sheets-crosshair-highlight/lib/index.css'
 
+// oxlint-disable-next-line import/default
 import workerURL from './worker.ts?worker&url'
 
 // import { setupUniverDebugPlugin } from './plugins/debug'
@@ -108,7 +102,7 @@ export function setupUniver() {
           type: 'module',
         }),
         formula: {
-          initialFormulaComputing: CalculationMode.FORCED
+          initialFormulaComputing: CalculationMode.FORCED,
         },
         // footer: {
         //   addSheetButtonConfig: {
@@ -127,13 +121,13 @@ export function setupUniver() {
         // if univer page is not in the same domain as the server, you need to set the following parameters
         universerEndpoint,
         // if you want to use the no-limit business feature, you can get 30-day trial license from https://univer.ai/license
-        // eslint-disable-next-line node/prefer-global/process
+        // oxlint-disable-next-line node/prefer-global/process
         license: process.env.UNIVER_CLIENT_LICENSE || 'your license.txt',
         exchangeClientOptions: {
           minSheetRowCount: 100,
           minSheetColumnCount: 12,
           // enableServerSideComputing: true,
-        }
+        },
       }),
       UniverSheetsCollaborationPreset({
         universerEndpoint,
@@ -153,10 +147,7 @@ export function setupUniver() {
       UniverSheetsTablePreset(),
       UniverSheetsHyperLinkPreset(),
     ],
-    plugins: [
-      UniverSheetsCrosshairHighlightPlugin,
-      UniverSheetsZenEditorPlugin,
-    ],
+    plugins: [UniverSheetsCrosshairHighlightPlugin, UniverSheetsZenEditorPlugin],
   })
 
   // setupUniverDebugPlugin(univer)
@@ -190,21 +181,22 @@ export function setupUniver() {
         name: 'New Sheet By Univer',
         creator: 'user',
       }),
-    }).then((response) => {
-      if (!response.ok)
-        throw new Error('Failed to create new sheet')
-
-      return response.json()
-    }).then((data) => {
-      if (!data.unitID)
-        throw new Error('create unit failed')
-
-      url.searchParams.set('unit', data.unitID);
-      url.searchParams.set('type', String(UniverInstanceType.UNIVER_SHEET));
-      window.location.href = url.toString();
-    }).catch((error) => {
-      console.error(error)
     })
+      .then((response) => {
+        if (!response.ok) throw new Error('Failed to create new sheet')
+
+        return response.json()
+      })
+      .then((data) => {
+        if (!data.unitID) throw new Error('create unit failed')
+
+        url.searchParams.set('unit', data.unitID)
+        url.searchParams.set('type', String(UniverInstanceType.UNIVER_SHEET))
+        window.location.href = url.toString()
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }
 
   return univerAPI
