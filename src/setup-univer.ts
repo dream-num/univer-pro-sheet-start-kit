@@ -1,62 +1,72 @@
 import { createUniver, defaultTheme, LocaleType, LogLevel, mergeLocales, UniverInstanceType } from '@univerjs/presets'
 
-import { CalculationMode, HTTPService, UniverSheetsCorePreset } from '@univerjs/preset-sheets-core'
+import { HTTPService, UniverSheetsCorePreset } from '@univerjs/preset-sheets-core'
+import sheetsCoreArSa from '@univerjs/preset-sheets-core/locales/ar-SA'
 import sheetsCoreEnUs from '@univerjs/preset-sheets-core/locales/en-US'
 import '@univerjs/preset-sheets-core/lib/index.css'
 
 import { UniverSheetsAdvancedPreset } from '@univerjs/preset-sheets-advanced'
+import sheetsAdvancedArSa from '@univerjs/preset-sheets-advanced/locales/ar-SA'
 import sheetsAdvancedEnUs from '@univerjs/preset-sheets-advanced/locales/en-US'
 import '@univerjs/preset-sheets-advanced/lib/index.css'
 
 import { UniverSheetsCollaborationPreset } from '@univerjs/preset-sheets-collaboration'
+import sheetsCollaborationArSa from '@univerjs/preset-sheets-collaboration/locales/ar-SA'
 import sheetsCollaborationEnUs from '@univerjs/preset-sheets-collaboration/locales/en-US'
 import '@univerjs/preset-sheets-collaboration/lib/index.css'
 
 import { UniverSheetsThreadCommentPreset } from '@univerjs/preset-sheets-thread-comment'
+import sheetsThreadCommentArSa from '@univerjs/preset-sheets-thread-comment/locales/ar-SA'
 import sheetsThreadCommentEnUs from '@univerjs/preset-sheets-thread-comment/locales/en-US'
 import '@univerjs/preset-sheets-thread-comment/lib/index.css'
 
 import { UniverSheetsConditionalFormattingPreset } from '@univerjs/preset-sheets-conditional-formatting'
+import sheetsConditionalFormattingArSa from '@univerjs/preset-sheets-conditional-formatting/locales/ar-SA'
 import sheetsConditionalFormattingEnUs from '@univerjs/preset-sheets-conditional-formatting/locales/en-US'
 import '@univerjs/preset-sheets-conditional-formatting/lib/index.css'
 
 import { UniverSheetsDataValidationPreset } from '@univerjs/preset-sheets-data-validation'
+import sheetsDataValidationArSa from '@univerjs/preset-sheets-data-validation/locales/ar-SA'
 import sheetsDataValidationEnUs from '@univerjs/preset-sheets-data-validation/locales/en-US'
 import '@univerjs/preset-sheets-data-validation/lib/index.css'
 
 import { UniverSheetsDrawingPreset } from '@univerjs/preset-sheets-drawing'
+import sheetsDrawingArSa from '@univerjs/preset-sheets-drawing/locales/ar-SA'
 import sheetsDrawingEnUs from '@univerjs/preset-sheets-drawing/locales/en-US'
 import '@univerjs/preset-sheets-drawing/lib/index.css'
 
 import { UniverSheetsFilterPreset } from '@univerjs/preset-sheets-filter'
+import sheetsFilterArSa from '@univerjs/preset-sheets-filter/locales/ar-SA'
 import sheetsFilterEnUs from '@univerjs/preset-sheets-filter/locales/en-US'
 import '@univerjs/preset-sheets-filter/lib/index.css'
 
 import { UniverSheetsFindReplacePreset } from '@univerjs/preset-sheets-find-replace'
+import sheetsFindReplaceArSa from '@univerjs/preset-sheets-find-replace/locales/ar-SA'
 import sheetsFindReplaceEnUs from '@univerjs/preset-sheets-find-replace/locales/en-US'
 import '@univerjs/preset-sheets-find-replace/lib/index.css'
 
 import { UniverSheetsHyperLinkPreset } from '@univerjs/preset-sheets-hyper-link'
+import sheetsHyperLinkArSa from '@univerjs/preset-sheets-hyper-link/locales/ar-SA'
 import sheetsHyperLinkEnUs from '@univerjs/preset-sheets-hyper-link/locales/en-US'
 import '@univerjs/preset-sheets-hyper-link/lib/index.css'
 
 import { UniverSheetsSortPreset } from '@univerjs/preset-sheets-sort'
+import sheetsSortArSa from '@univerjs/preset-sheets-sort/locales/ar-SA'
 import sheetsSortEnUs from '@univerjs/preset-sheets-sort/locales/en-US'
 import '@univerjs/preset-sheets-sort/lib/index.css'
 
 import { UniverSheetsNotePreset } from '@univerjs/preset-sheets-note'
+import sheetsNoteArSa from '@univerjs/preset-sheets-note/locales/ar-SA'
 import sheetsNoteEnUs from '@univerjs/preset-sheets-note/locales/en-US'
 import '@univerjs/preset-sheets-note/lib/index.css'
 
 import { UniverSheetsTablePreset } from '@univerjs/preset-sheets-table'
+import sheetsTableArSa from '@univerjs/preset-sheets-table/locales/ar-SA'
 import sheetsTableEnUs from '@univerjs/preset-sheets-table/locales/en-US'
 import '@univerjs/preset-sheets-table/lib/index.css'
 
-import { UniverSheetsZenEditorPlugin } from '@univerjs/sheets-zen-editor'
-import sheetsZenEditorEnUs from '@univerjs/sheets-zen-editor/locale/en-US'
-import '@univerjs/sheets-zen-editor/lib/index.css'
-
 import { UniverSheetsCrosshairHighlightPlugin } from '@univerjs/sheets-crosshair-highlight'
+import sheetsCrosshairHighlightArSa from '@univerjs/sheets-crosshair-highlight/locale/ar-SA'
 import sheetsCrosshairHighlightEnUs from '@univerjs/sheets-crosshair-highlight/locale/en-US'
 import '@univerjs/sheets-crosshair-highlight/lib/index.css'
 
@@ -72,6 +82,7 @@ export function setupUniver() {
 
   const { univerAPI, univer } = createUniver({
     locale: LocaleType.EN_US,
+    // locale: LocaleType.AR_SA,
     locales: {
       [LocaleType.EN_US]: mergeLocales(
         sheetsCoreEnUs,
@@ -87,10 +98,26 @@ export function setupUniver() {
         sheetsSortEnUs,
         sheetsNoteEnUs,
         sheetsTableEnUs,
-        sheetsZenEditorEnUs,
         sheetsCrosshairHighlightEnUs,
       ),
+      [LocaleType.AR_SA]: mergeLocales(
+        sheetsCoreArSa,
+        sheetsAdvancedArSa,
+        sheetsCollaborationArSa,
+        sheetsThreadCommentArSa,
+        sheetsConditionalFormattingArSa,
+        sheetsDataValidationArSa,
+        sheetsDrawingArSa,
+        sheetsFilterArSa,
+        sheetsFindReplaceArSa,
+        sheetsHyperLinkArSa,
+        sheetsSortArSa,
+        sheetsNoteArSa,
+        sheetsTableArSa,
+        sheetsCrosshairHighlightArSa,
+      ),
     },
+    // direction: 'rtl',
     collaboration,
     logLevel: LogLevel.VERBOSE,
     theme: defaultTheme,
@@ -101,9 +128,7 @@ export function setupUniver() {
         workerURL: new Worker(new URL(workerURL, import.meta.url), {
           type: 'module',
         }),
-        formula: {
-          initialFormulaComputing: CalculationMode.FORCED,
-        },
+        ribbonType: 'grid',
         // footer: {
         //   addSheetButtonConfig: {
         //     // show: false,
@@ -147,7 +172,7 @@ export function setupUniver() {
       UniverSheetsTablePreset(),
       UniverSheetsHyperLinkPreset(),
     ],
-    plugins: [UniverSheetsCrosshairHighlightPlugin, UniverSheetsZenEditorPlugin],
+    plugins: [UniverSheetsCrosshairHighlightPlugin],
   })
 
   // setupUniverDebugPlugin(univer)

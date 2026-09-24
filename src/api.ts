@@ -1,5 +1,7 @@
 import type { FUniver, ICellData } from '@univerjs/presets'
-import { downloadFile } from '@univerjs/preset-sheets-advanced'
+import { ExchangeFormat } from '@univerjs/preset-sheets-advanced'
+
+const SHEET_EXPORT_FORMATS = [ExchangeFormat.XLSX, ExchangeFormat.CSV, ExchangeFormat.TSV]
 
 export function setupSetValue($toolbar: HTMLElement, univerAPI: FUniver) {
   const $button = document.createElement('a')
@@ -370,18 +372,18 @@ export function setupVersion($toolbar: HTMLElement) {
 
 export function setupUploadFileToUnitId($toolbar: HTMLElement, univerAPI: FUniver) {
   const $button = document.createElement('a')
-  $button.textContent = 'importXLSXToUnitIdAsync'
+  $button.textContent = 'importSheetToUnitIdAsync'
   $toolbar.appendChild($button)
 
   $button.addEventListener('click', () => {
     const input = document.createElement('input')
     input.type = 'file'
-    input.accept = '.xlsx'
+    input.accept = '.xlsx,.xls,.csv,.tsv'
     input.addEventListener('change', async (event) => {
       const file = (event.target as HTMLInputElement).files?.[0]
       if (!file) return
 
-      const unitId = await univerAPI.importXLSXToUnitIdAsync(file)
+      const unitId = await univerAPI.importSheetToUnitIdAsync(file)
 
       if (!unitId) return
 
@@ -392,33 +394,36 @@ export function setupUploadFileToUnitId($toolbar: HTMLElement, univerAPI: FUnive
 }
 
 export function setupDownloadFileByUnitId($toolbar: HTMLElement, univerAPI: FUniver) {
-  const $button = document.createElement('a')
-  $button.textContent = 'exportXLSXByUnitIdAsync'
-  $toolbar.appendChild($button)
+  for (const format of SHEET_EXPORT_FORMATS) {
+    const $button = document.createElement('a')
+    $button.textContent = `export${format.toUpperCase()}ByUnitIdAsync`
+    $toolbar.appendChild($button)
 
-  $button.addEventListener('click', async () => {
-    const fWorkbook = univerAPI.getActiveWorkbook()!
-    const unitId = fWorkbook.getId()
-    const file = await univerAPI.exportXLSXByUnitIdAsync(unitId)
-    if (!file) return
-    downloadFile(file, 'univer', 'xlsx')
-  })
+    $button.addEventListener('click', async () => {
+      const fWorkbook = univerAPI.getActiveWorkbook()!
+      const unitId = fWorkbook.getId()
+      const sheetId = format === ExchangeFormat.XLSX ? undefined : fWorkbook.getActiveSheet().getSheetId()
+      const file = await univerAPI.exportSheetByUnitIdAsync(unitId, format, sheetId)
+      if (!file) return
+      univerAPI.downloadFile(file, 'univer', format)
+    })
+  }
 }
 
 export function setupUploadFileToSnapshot($toolbar: HTMLElement, univerAPI: FUniver) {
   const $button = document.createElement('a')
-  $button.textContent = 'importXLSXToSnapshotAsync'
+  $button.textContent = 'importSheetToSnapshotAsync'
   $toolbar.appendChild($button)
 
   $button.addEventListener('click', () => {
     const input = document.createElement('input')
     input.type = 'file'
-    input.accept = '.xlsx'
+    input.accept = '.xlsx,.xls,.csv,.tsv'
     input.addEventListener('change', async (event) => {
       const file = (event.target as HTMLInputElement).files?.[0]
       if (!file) return
 
-      const snapshot = await univerAPI.importXLSXToSnapshotAsync(file)
+      const snapshot = await univerAPI.importSheetToSnapshotAsync(file)
 
       if (!snapshot) return
 
@@ -429,15 +434,18 @@ export function setupUploadFileToSnapshot($toolbar: HTMLElement, univerAPI: FUni
 }
 
 export function setupDownloadFileBySnapshot($toolbar: HTMLElement, univerAPI: FUniver) {
-  const $button = document.createElement('a')
-  $button.textContent = 'exportXLSXBySnapshotAsync'
-  $toolbar.appendChild($button)
+  for (const format of SHEET_EXPORT_FORMATS) {
+    const $button = document.createElement('a')
+    $button.textContent = `export${format.toUpperCase()}BySnapshotAsync`
+    $toolbar.appendChild($button)
 
-  $button.addEventListener('click', async () => {
-    const fWorkbook = univerAPI.getActiveWorkbook()!
-    const snapshot = fWorkbook.save()
-    const file = await univerAPI.exportXLSXBySnapshotAsync(snapshot)
-    if (!file) return
-    downloadFile(file, 'univer', 'xlsx')
-  })
+    $button.addEventListener('click', async () => {
+      const fWorkbook = univerAPI.getActiveWorkbook()!
+      const snapshot = fWorkbook.save()
+      const sheetId = format === ExchangeFormat.XLSX ? undefined : fWorkbook.getActiveSheet().getSheetId()
+      const file = await univerAPI.exportSheetBySnapshotAsync(snapshot, format, sheetId)
+      if (!file) return
+      univerAPI.downloadFile(file, 'univer', format)
+    })
+  }
 }
