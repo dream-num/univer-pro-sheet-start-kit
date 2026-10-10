@@ -136,11 +136,27 @@ export function setupUniver() {
         //     defaultColumnCount: 5,
         //   },
         // },
+        sheets: {
+          allowArrowKeyWrapOnSheetBoundary: false,
+        }
       }),
       UniverSheetsDrawingPreset({
         collaboration,
         // allowImageSize: 0.01 * 1024 * 1024, // 10KB
       }),
+      UniverSheetsThreadCommentPreset({
+        collaboration,
+      }),
+      UniverSheetsConditionalFormattingPreset(),
+      UniverSheetsDataValidationPreset(),
+      UniverSheetsFilterPreset({
+        enableSyncSwitch: true,
+      }),
+      UniverSheetsFindReplacePreset(),
+      UniverSheetsSortPreset(),
+      UniverSheetsNotePreset(),
+      UniverSheetsTablePreset(),
+      UniverSheetsHyperLinkPreset(),
       UniverSheetsAdvancedPreset({
         useWorker: true,
         // if univer page is not in the same domain as the server, you need to set the following parameters
@@ -158,19 +174,6 @@ export function setupUniver() {
         universerEndpoint,
         univerContainerId: 'univer',
       }),
-      UniverSheetsThreadCommentPreset({
-        collaboration,
-      }),
-      UniverSheetsConditionalFormattingPreset(),
-      UniverSheetsDataValidationPreset(),
-      UniverSheetsFilterPreset({
-        enableSyncSwitch: true,
-      }),
-      UniverSheetsFindReplacePreset(),
-      UniverSheetsSortPreset(),
-      UniverSheetsNotePreset(),
-      UniverSheetsTablePreset(),
-      UniverSheetsHyperLinkPreset(),
     ],
     plugins: [UniverSheetsCrosshairHighlightPlugin],
   })
@@ -205,6 +208,12 @@ export function setupUniver() {
         type: UniverInstanceType.UNIVER_SHEET,
         name: 'New Sheet By Univer',
         creator: 'user',
+        // Customizing the number of rows and columns in the new sheet
+        templateID: 'custom-cell',
+        customCell: {
+          rowCount: 100,
+          colCount: 26,
+        },
       }),
     })
       .then((response) => {
