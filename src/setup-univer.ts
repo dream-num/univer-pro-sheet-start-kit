@@ -1,4 +1,5 @@
-import { createUniver, defaultTheme, LocaleType, LogLevel, mergeLocales, UniverInstanceType } from '@univerjs/presets'
+import type { IGetUserResponse } from '@univerjs/protocol';
+import { createUniver, defaultTheme, LocaleType, LogLevel, mergeLocales, UniverInstanceType, UserManagerService } from '@univerjs/presets'
 
 import { HTTPService, UniverSheetsCorePreset } from '@univerjs/preset-sheets-core'
 import sheetsCoreArSa from '@univerjs/preset-sheets-core/locales/ar-SA'
@@ -75,7 +76,7 @@ import workerURL from './worker.ts?worker&url'
 
 // import { setupUniverDebugPlugin } from './plugins/debug'
 
-export function setupUniver() {
+export async function setupUniver() {
   const universerEndpoint = window.location.origin
 
   const collaboration = true
@@ -173,6 +174,7 @@ export function setupUniver() {
       UniverSheetsCollaborationPreset({
         universerEndpoint,
         univerContainerId: 'univer',
+        enableUrlUnitLoader: false,
       }),
     ],
     plugins: [UniverSheetsCrosshairHighlightPlugin],
@@ -193,13 +195,26 @@ export function setupUniver() {
     },
   })
 
-  // check if the unit is already created
+  async function fetchServerUser() {
+    const userService = injector.get(UserManagerService);
+    const httpService = injector.get(HTTPService);
+    const res = await httpService.get<IGetUserResponse>(`${universerEndpoint}/universer-api/user`);
+
+    if (res.body.user) {
+      userService.setCurrentUser(res.body.user);
+    }
+  } 
+
+  // Load collaboration documents via the API:
+  // - If the URL includes a custom document ID parameter ("unit" in this example), load that document.
+  // - Otherwise, create a blank document on the server, then load it.
   const url = new URL(window.location.href)
-  const unit = url.searchParams.get('unit')
-  if (unit) {
-    // waiting for the unit to be loaded
+  const unitId = url.searchParams.get('unit')
+  if (unitId) {
+    await fetchServerUser();
+    await univerAPI.getCollaboration().loadSheetAsync(unitId);
   } else {
-    fetch(`${universerEndpoint}/universer-api/snapshot/2/unit/-/create`, {
+    const response = await fetch(`${universerEndpoint}/universer-api/snapshot/2/unit/-/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -216,21 +231,15 @@ export function setupUniver() {
         },
       }),
     })
-      .then((response) => {
-        if (!response.ok) throw new Error('Failed to create new sheet')
 
-        return response.json()
-      })
-      .then((data) => {
-        if (!data.unitID) throw new Error('create unit failed')
+    if (!response.ok) throw new Error('Failed to create new sheet')
 
-        url.searchParams.set('unit', data.unitID)
-        url.searchParams.set('type', String(UniverInstanceType.UNIVER_SHEET))
-        window.location.href = url.toString()
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+    const data = await response.json()
+    if (!data.unitID) throw new Error('create unit failed')
+    console.log('Created new unit with ID:', data.unitID)
+
+    await fetchServerUser()
+    await univerAPI.getCollaboration().loadSheetAsync(data.unitID)
   }
 
   return univerAPI
