@@ -7,6 +7,7 @@
     /** univer plugin */
     "experimentalDecorators": true,
     "module": "ESNext",
+    "jsx": "react-jsx",
 
     /* Bundler mode */
     "moduleResolution": "bundler",

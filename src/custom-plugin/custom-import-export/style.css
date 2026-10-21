@@ -1,0 +1,44 @@
+/* Utilities used by the migrated views but absent from the preset CSS bundles. */
+.univer-bottom-12 {
+  bottom: 3rem;
+}
+
+.univer-bottom-16 {
+  bottom: 4rem;
+}
+
+.univer-right-3 {
+  right: 0.75rem;
+}
+
+.univer-max-h-\[50vh\] {
+  max-height: 50vh;
+}
+
+.univer-w-48 {
+  width: 12rem;
+}
+
+.univer-w-\[324px\] {
+  width: 324px;
+}
+
+.univer-w-\[372px\] {
+  width: 372px;
+}
+
+.univer-w-\[calc\(100\%-48px\)\] {
+  width: calc(100% - 48px);
+}
+
+.univer-pr-4 {
+  padding-right: 1rem;
+}
+
+.univer-pt-5 {
+  padding-top: 1.25rem;
+}
+
+.univer-no-underline {
+  text-decoration-line: none;
+}

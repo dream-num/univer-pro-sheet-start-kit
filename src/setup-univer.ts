@@ -73,6 +73,8 @@ import '@univerjs/sheets-crosshair-highlight/lib/index.css'
 
 // oxlint-disable-next-line import/default
 import workerURL from './worker.ts?worker&url'
+import { CustomUrlLoadPlugin } from './custom-plugin/custom-url-load/plugin';
+import { CustomImportExportPlugin } from './custom-plugin/custom-import-export/plugin';
 
 // import { setupUniverDebugPlugin } from './plugins/debug'
 
@@ -174,10 +176,12 @@ export async function setupUniver() {
       UniverSheetsCollaborationPreset({
         universerEndpoint,
         univerContainerId: 'univer',
-        enableUrlUnitLoader: false,
       }),
     ],
-    plugins: [UniverSheetsCrosshairHighlightPlugin],
+    plugins: [
+      UniverSheetsCrosshairHighlightPlugin,
+      CustomImportExportPlugin
+    ],
   })
 
   // setupUniverDebugPlugin(univer)
@@ -205,14 +209,30 @@ export async function setupUniver() {
     }
   } 
 
-  // Load collaboration documents via the API:
-  // - If the URL includes a custom document ID parameter ("unit" in this example), load that document.
-  // - Otherwise, create a blank document on the server, then load it.
+  // Built-in URL-based collaborative document loading has been removed.
+  // Hosts control user initialization and choose ONE of the loading approaches below.
   const url = new URL(window.location.href)
   const unitId = url.searchParams.get('unit')
+  const subUnitId = url.searchParams.get('subunit');
   if (unitId) {
-    await fetchServerUser();
-    await univerAPI.getCollaboration().loadSheetAsync(unitId);
+    await fetchServerUser().catch(console.error);
+
+    // Option 1: Restore the former URL behavior with the custom plugin.
+    // It reads `unit` and `type`, activates the worksheet specified by `subunit`,
+    // and keeps worksheet navigation in sync with the URL.
+    univer.registerPlugin(CustomUrlLoadPlugin);
+
+    // Option 2: Load through the Facade API and customize URL behavior in the host.
+    // Disable Option 1 before enabling this block.
+    // const fWorkbook = await univerAPI.getCollaboration().loadSheetAsync(unitId);
+    // if (!fWorkbook) {
+    //     console.error('Failed to load the workbook');
+    //     return;
+    // }
+
+    // if (subUnitId) {
+    //     fWorkbook.setActiveSheet(subUnitId);
+    // }
   } else {
     const response = await fetch(`${universerEndpoint}/universer-api/snapshot/2/unit/-/create`, {
       method: 'POST',
@@ -238,8 +258,15 @@ export async function setupUniver() {
     if (!data.unitID) throw new Error('create unit failed')
     console.log('Created new unit with ID:', data.unitID)
 
-    await fetchServerUser()
-    await univerAPI.getCollaboration().loadSheetAsync(data.unitID)
+    // Option 1: Load the newly created sheet by updating the URL and reloading the page.
+    url.searchParams.set('unit', data.unitID);
+    url.searchParams.set('type', String(UniverInstanceType.UNIVER_SHEET));
+    window.location.href = url.toString();
+
+    // Option 2: Load the newly created sheet directly without changing the URL.
+    // Disable Option 1 before enabling this block.
+    // await fetchServerUser().catch(console.error);
+    // await univerAPI.getCollaboration().loadSheetAsync(data.unitID);
   }
 
   return univerAPI
